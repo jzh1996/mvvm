@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/swipeRefreshLayout_my"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.jzh.mvvm.ui.view.MyRefreshHeader
+            android:id="@+id/ch_header_my"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_my_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp">
+
+                        <ImageView
+                            android:id="@+id/iv_bg_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorPrimaryDark"
+                            android:scaleType="fitXY" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:paddingTop="52dp"
+                            android:paddingEnd="20dp"
+                            android:paddingRight="20dp"
+                            android:src="@drawable/new_message" />
+
+                        <TextView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="50dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@drawable/oval_msg" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/head_pic"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/icon_profile" />
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/head_pic"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/my_login"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_18" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_score"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/my_rank_num"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawablePadding="20dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="@string/my_score"
+                            android:textColor="@color/color_black1"
+                            app:drawableLeftCompat="@drawable/score"
+                            app:drawableRightCompat="@drawable/right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_my_collect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawablePadding="20dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="@string/my_collection"
+                            android:textColor="@color/color_black1"
+                            app:drawableLeftCompat="@drawable/collection"
+                            app:drawableRightCompat="@drawable/right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_my_share"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawablePadding="20dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="@string/my_share"
+                            android:textColor="@color/color_black1"
+                            app:drawableLeftCompat="@drawable/share"
+                            app:drawableRightCompat="@drawable/right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawablePadding="20dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="@string/my_system"
+                            android:textColor="@color/color_black1"
+                            app:drawableLeftCompat="@drawable/system"
+                            app:drawableRightCompat="@drawable/right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawablePadding="20dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="@string/my_about"
+                            android:textColor="@color/color_black1"
+                            app:drawableLeftCompat="@drawable/about"
+                            app:drawableRightCompat="@drawable/right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_my_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawablePadding="20dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="@string/my_logout"
+                            android:textColor="@color/color_black1"
+                            app:drawableLeftCompat="@drawable/logout"
+                            app:drawableRightCompat="@drawable/right" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</FrameLayout>

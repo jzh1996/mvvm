@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">玩Android</string>
+
+    <!--主页-->
+    <string name="home">首页</string>
+    <string name="system">体系</string>
+    <string name="navigation">导航</string>
+    <string name="weixin">公众号</string>
+    <string name="question">问答</string>
+    <string name="my">我的</string>
+    <string name="group">广场</string>
+
+    <string name="no_data">暂无数据</string>
+
+    <string name="id">ID:</string>
+    <string name="grade">等级:</string>
+    <string name="rank">排名</string>
+    <string name="top_tip">置顶</string>
+    <string name="fresh">新</string>
+    <string name="no_net_work_tip">网络不给力,请检查网络设置</string>
+
+    <!--我的页面-->
+    <string name="my_login">去登录</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="my_score">我的积分</string>
+    <string name="my_share">我的分享</string>
+    <string name="my_system">系统设置</string>
+    <string name="my_about">关于我们</string>
+    <string name="my_logout">退出登录</string>
+    <string name="first_title">一级标题</string>
+    <string name="seconed_title">二级标题</string>
+
+    <!--数字及常量-->
+    <string name="zero">0</string>
+    <string name="exceed_99">99+</string>
+    <string name="android_title">Android四大组件</string>
+
+    <string name="welcome">欢迎使用</string>
+    <string name="take_photo">拍照</string>
+    <string name="from_album">从相册选取</string>
+    <string name="cancel">取消</string>
+
+    <!-- 广场 -->
+    <string name="share_article">分享文章</string>
+    <string name="share_article_title">文章标题</string>
+    <string name="share_article_title_tip">100字以内</string>
+    <string name="share_article_link">文章链接</string>
+    <string name="share_article_link_tip">例如：https://www.wanandroid.com</string>
+    <string name="share_success">分享成功</string>
+    <string name="share_article_delete">已删除分享的文章</string>
+    <string name="audited">待审核</string>
+    <string name="submit_ing">正在提交...</string>
+    <string name="share_article_tip" translatable="false">1. 只要是任何好文都可以分享哈，并不一定要是原创！投递的文章会进入广场 tab;
+\n2. CSDN，掘金，简书等官方博客站点会直接通过，不需要审核;
+\n3. 其他个人站点会进入审核阶段，不要投递任何无效链接，测试的请尽快删除，否则可能会对你的账号产生一定影响;
+\n4. 目前处于测试阶段，如果你发现500等错误，可以向我提交日志，让我们一起使网站变得更好。
+\n5. 由于本站只有我一个人开发与维护，会尽力保证24小时内审核，当然有可能哪天太累，会延期，请保持佛系...</string>
+    <string name="account_phone">用户名</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="delete">删除</string>
+    <string name="tips">提示</string>
+    <string name="cancle">取消</string>
+    <string name="sure">确认</string>
+    <string name="welcome_register">欢迎注册</string>
+
+</resources>

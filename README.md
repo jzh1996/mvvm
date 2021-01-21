@@ -16,7 +16,7 @@
 
 ## 下载体验
 
-- 点击[![](https://github.com/jzh1996/mvvm/app-demo.apk) 下载
+- 点击[![](https://img.shields.io/badge/Download-apk-green.svg)](https://github.com/jzh1996/mvvm/app-demo.apk) 下载
 
 ## 主要功能
 

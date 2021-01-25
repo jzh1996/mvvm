@@ -106,9 +106,7 @@ class QuestionFragment : BaseViewModelFragment<QuestionViewModel>() {
 
     override fun requestError(it: Exception?) {
         super.requestError(it)
-        if (questionAdapter.loadMoreModule.isLoading) {
-            questionAdapter.loadMoreModule.loadMoreFail()
-        }
+        questionAdapter.loadMoreModule.loadMoreFail()
     }
 
     override fun providerVMClass(): Class<QuestionViewModel> = QuestionViewModel::class.java

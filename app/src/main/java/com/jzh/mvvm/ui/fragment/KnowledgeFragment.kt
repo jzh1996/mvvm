@@ -64,6 +64,7 @@ class KnowledgeFragment : BaseViewModelFragment<KnowledgeViewModel>() {
 
     override fun requestError(it: Exception?) {
         super.requestError(it)
+        knowledgeAdapter.loadMoreModule.loadMoreFail()
     }
 
     override fun providerVMClass(): Class<KnowledgeViewModel> = KnowledgeViewModel::class.java

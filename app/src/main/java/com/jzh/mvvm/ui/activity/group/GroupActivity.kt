@@ -116,9 +116,7 @@ class GroupActivity : BaseViewModelActivity<GroupActivityViewModel>() {
 
     override fun requestError(it: Exception?) {
         super.requestError(it)
-        if (mAdapter.loadMoreModule.isLoading) {
-            mAdapter.loadMoreModule.loadMoreFail()
-        }
+        mAdapter.loadMoreModule.loadMoreFail()
     }
 
     override fun providerVMClass() = GroupActivityViewModel::class.java

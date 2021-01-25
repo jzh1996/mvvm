@@ -86,8 +86,6 @@ class RankActivity : BaseViewModelActivity<MyScoreActivityViewModel>() {
 
     override fun requestError(it: Exception?) {
         super.requestError(it)
-        if (mAdapter.loadMoreModule.isLoading) {
-            mAdapter.loadMoreModule.loadMoreFail()
-        }
+        mAdapter.loadMoreModule.loadMoreFail()
     }
 }

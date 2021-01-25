@@ -68,7 +68,8 @@ class MyScoreActivity : BaseViewModelActivity<MyScoreActivityViewModel>() {
             hideLoading()
             it.datas.let { scoreList ->
                 mAdapter.run {
-                    setList(scoreList)
+                    if (page == 1) setList(scoreList)
+                    else addData(scoreList)
                     if (it.over) loadMoreModule.loadMoreEnd()
                     else loadMoreModule.loadMoreComplete()
                 }
@@ -78,8 +79,6 @@ class MyScoreActivity : BaseViewModelActivity<MyScoreActivityViewModel>() {
 
     override fun requestError(it: Exception?) {
         super.requestError(it)
-        if (mAdapter.loadMoreModule.isLoading) {
-            mAdapter.loadMoreModule.loadMoreFail()
-        }
+        mAdapter.loadMoreModule.loadMoreFail()
     }
 }

@@ -163,8 +163,6 @@ class SearchActivity : BaseViewModelActivity<HomeViewModel>() {
 
     override fun requestError(it: Exception?) {
         super.requestError(it)
-        if (homeAdapter.loadMoreModule.isLoading) {
-            homeAdapter.loadMoreModule.loadMoreFail()
-        }
+        homeAdapter.loadMoreModule.loadMoreFail()
     }
 }

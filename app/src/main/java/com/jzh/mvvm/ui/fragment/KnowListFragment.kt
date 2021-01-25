@@ -116,9 +116,7 @@ class KnowListFragment : BaseViewModelFragment<KnowListViewModel>() {
 
     override fun requestError(it: Exception?) {
         super.requestError(it)
-        if (knowledgeListAdapter.loadMoreModule.isLoading) {
-            knowledgeListAdapter.loadMoreModule.loadMoreFail()
-        }
+        knowledgeListAdapter.loadMoreModule.loadMoreFail()
     }
 
     override fun providerVMClass(): Class<KnowListViewModel> = KnowListViewModel::class.java

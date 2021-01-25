@@ -128,7 +128,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
                 if (isRefresh)
                     homeBadge = 0
                 for (i in 0 until (datas as MutableList<Article>).size) {
-                    if (datas[i].fresh) {
+                    if (datas[i].fresh && datas[i].top != "1") {
                         homeBadge += 1
                     }
                 }
@@ -229,8 +229,6 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
 
     override fun requestError(it: Exception?) {
         super.requestError(it)
-        if (homeAdapter.loadMoreModule.isLoading) {
-            homeAdapter.loadMoreModule.loadMoreFail()
-        }
+        homeAdapter.loadMoreModule.loadMoreFail()
     }
 }

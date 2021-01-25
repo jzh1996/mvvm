@@ -73,7 +73,7 @@ class MyShareActivity : BaseViewModelActivity<ShareActivityViewModel>() {
                 val page = mAdapter.data.size / 20
                 getShareArticle(page)
             }
-            addChildClickViewIds(R.id.iv_like, R.id.btn_delete)
+            addChildClickViewIds(R.id.iv_like, R.id.btn_delete, R.id.rl_content)
             setOnItemChildClickListener { adapter, view, position ->
                 if (data.size == 0) return@setOnItemChildClickListener
                 val res = data[position]
@@ -94,6 +94,9 @@ class MyShareActivity : BaseViewModelActivity<ShareActivityViewModel>() {
                         viewModel.deleteShareArticle(res.id).observe(this@MyShareActivity, {
                             mAdapter.removeAt(position)
                         })
+                    }
+                    R.id.rl_content -> {
+                        WebViewActivity.start(this@MyShareActivity, res.id, res.title, res.link)
                     }
                 }
             }
@@ -131,5 +134,10 @@ class MyShareActivity : BaseViewModelActivity<ShareActivityViewModel>() {
                 if (resultCode == RESULT_OK) startHttp()
             }
         }
+    }
+
+    override fun requestError(it: Exception?) {
+        super.requestError(it)
+        mAdapter.loadMoreModule.loadMoreFail()
     }
 }

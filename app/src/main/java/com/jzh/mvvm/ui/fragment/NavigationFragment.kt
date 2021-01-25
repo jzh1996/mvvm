@@ -73,6 +73,7 @@ class NavigationFragment : BaseViewModelFragment<NavigationViewModel>() {
 
     override fun requestError(it: Exception?) {
         super.requestError(it)
+        navigationAdapter.loadMoreModule.loadMoreFail()
     }
 
     override fun providerVMClass(): Class<NavigationViewModel> = NavigationViewModel::class.java

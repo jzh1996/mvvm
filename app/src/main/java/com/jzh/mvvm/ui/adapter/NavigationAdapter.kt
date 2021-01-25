@@ -3,6 +3,7 @@ package com.jzh.mvvm.ui.adapter
 import android.view.LayoutInflater
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.google.android.flexbox.FlexboxLayout
 import com.jzh.mvvm.R
@@ -11,7 +12,8 @@ import com.jzh.mvvm.httpUtils.NavigationBean
 import java.util.*
 
 class NavigationAdapter :
-    BaseQuickAdapter<NavigationBean, BaseViewHolder>(R.layout.item_knowledge_tree_list) {
+    BaseQuickAdapter<NavigationBean, BaseViewHolder>(R.layout.item_knowledge_tree_list),
+    LoadMoreModule {
 
     private var mInflater: LayoutInflater? = null
     private val mFlexItemTextViewCaches: Queue<TextView> = LinkedList()

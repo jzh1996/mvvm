@@ -27,7 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.login.RegisterActivity"></activity>
+        <activity android:name=".ui.activity.my.AddTodoActivity"></activity>
+        <activity android:name=".ui.activity.my.TodoActivity" />
+        <activity android:name=".ui.activity.login.RegisterActivity" />
         <activity android:name=".ui.activity.my.MyShareActivity" />
         <activity android:name=".ui.activity.my.MyScoreActivity" />
         <activity

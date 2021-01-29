@@ -3,12 +3,11 @@ package com.jzh.mvvm.base
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import com.jzh.mvvm.mvvm.viewModel.CommonViewModel
 import com.jzh.mvvm.utils.toast
-import kotlinx.coroutines.TimeoutCancellationException
+import retrofit2.HttpException
 import kotlin.coroutines.cancellation.CancellationException
 
-abstract class BaseViewModelActivity<VM : CommonViewModel> : BaseActivity() {
+abstract class BaseViewModelActivity<VM : BaseViewModel> : BaseActivity() {
 
     protected lateinit var viewModel: VM
 
@@ -52,6 +51,10 @@ abstract class BaseViewModelActivity<VM : CommonViewModel> : BaseActivity() {
         it?.run {
             when (it) {
                 is CancellationException -> Log.d("${TAG}--->接口请求取消", it.message.toString())
+                is HttpException -> {
+                    if (it.code() == 504) toast("无法连接服务器,请检查网络设置")
+                    else toast(it.message.toString())
+                }
                 else -> toast(it.message.toString())
             }
         }

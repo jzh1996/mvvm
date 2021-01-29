@@ -46,6 +46,7 @@ class SearchActivity : BaseViewModelActivity<HomeViewModel>() {
         setSearchTop(R.drawable.search)
         toolbar_subtitle_image.setOnClickListener {
             hideSoftInput(ll_search, this)
+            isRefresh = true
             startSearch(0, searchStr)
         }
         search = toolbar_search_title
@@ -63,6 +64,7 @@ class SearchActivity : BaseViewModelActivity<HomeViewModel>() {
 
             override fun onQueryTextSubmit(string: String): Boolean {
                 searchStr = string
+                isRefresh = true
                 startSearch(0, string)
                 return false
             }
@@ -83,6 +85,7 @@ class SearchActivity : BaseViewModelActivity<HomeViewModel>() {
         refreshLayout.setRefreshHeader(ch_header_seach)
         refreshLayout.setOnRefreshListener {
             homeAdapter.loadMoreModule.isEnableLoadMore = false
+            isRefresh = true
             startSearch(0, searchStr)
         }
         recyclerView1_seach.run {
@@ -148,7 +151,7 @@ class SearchActivity : BaseViewModelActivity<HomeViewModel>() {
                     } else addData(it.datas)
                     if (data.size == 0) setEmptyView(R.layout.fragment_empty_layout)
                     else if (hasEmptyView()) removeEmptyView()
-                    if (it.over) loadMoreModule.loadMoreEnd(isRefresh)
+                    if (it.over || data.size < pageSize) loadMoreModule.loadMoreEnd(isRefresh)
                     else loadMoreModule.loadMoreComplete()
                 }
             }

@@ -1,5 +1,6 @@
 package com.jzh.mvvm.ui.mainFragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -17,6 +18,7 @@ import com.jzh.mvvm.ui.activity.collect.MyCollectActivity
 import com.jzh.mvvm.ui.activity.login.LoginActivity
 import com.jzh.mvvm.ui.activity.my.MyScoreActivity
 import com.jzh.mvvm.ui.activity.my.MyShareActivity
+import com.jzh.mvvm.ui.activity.my.TodoActivity
 import com.jzh.mvvm.ui.view.BottomDialog
 import com.jzh.mvvm.ui.view.MyDialog
 import com.jzh.mvvm.utils.FileUtils
@@ -53,6 +55,7 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
         ll_score.setOnClickListener(this)
         ll_my_share.setOnClickListener(this)
         ll_my_logout.setOnClickListener(this)
+        iv_todo.setOnClickListener(this)
         LiveEventBus.get(Constant.IS_LOGIN, Boolean::class.java).observe(this, {
             if (it) {
                 startHttp()
@@ -72,17 +75,19 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
             setRefreshHeader(ch_header_my)
             setOnRefreshListener { startHttp() }
         }
-        if (mmkv.decodeBool(Constant.USERNAME_KEY)) {
-            tv_name.text = mmkv.decodeString(Constant.USERNAME_KEY)
-        }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun startHttp() {
         if (mmkv.decodeBool(Constant.IS_LOGIN, false)) {
+            tv_name.text =
+                mmkv.decodeString(Constant.USERNAME_KEY, resources.getString(R.string.my_login))
+            my_rank_num.text = "${resources.getString(R.string.my_score)}(${mmkv.decodeString(Constant.USERNAME_COIN_COUNT)})"
             viewModel.getUserInfo().observe(this, {
                 refreshLayout.finishRefresh()
                 tv_name.text = it.username
-                my_rank_num.text = "我的积分(${it.coinCount})"
+                my_rank_num.text = "${resources.getString(R.string.my_score)}(${it.coinCount})"
+                mmkv.encode(Constant.USERNAME_COIN_COUNT, it.coinCount.toString())
                 mmkv.encode(Constant.USERNAME_KEY, it.username)
                 mmkv.encode(Constant.SCORE_UNM, it.coinCount)
             })
@@ -106,15 +111,13 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
     }
 
     private fun setBgImage(file: File?) {
-        if (this.isAdded) {
-            //因为头像是用的同一路径，Glide会缓存同一地址的图片不更新，所以这里禁止缓存
-            Glide.with(this).load(file)
-                .skipMemoryCache(true)//跳过内存缓存
-                .diskCacheStrategy(DiskCacheStrategy.NONE)//不要在disk硬盘缓存
-                .placeholder(R.drawable.bg_placeholder).dontAnimate()
-                .error(R.drawable.bg_placeholder)
-                .into(iv_bg_img)
-        }
+        //因为头像是用的同一路径，Glide会缓存同一地址的图片不更新，所以这里禁止缓存
+        Glide.with(this).load(file)
+            .skipMemoryCache(true)//跳过内存缓存
+            .diskCacheStrategy(DiskCacheStrategy.NONE)//不要在disk硬盘缓存
+            .placeholder(R.drawable.bg_placeholder).dontAnimate()
+            .error(R.drawable.bg_placeholder)
+            .into(iv_bg_img)
     }
 
     override fun providerVMClass(): Class<MyViewModel> = MyViewModel::class.java
@@ -172,6 +175,13 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
                         }
                     } else logoutDialog.show()
                 } else toast("当前未登录!")
+            }
+            iv_todo -> {
+                if (mmkv.decodeBool(Constant.IS_LOGIN, false)) {
+                    startActivity(Intent(activity, TodoActivity::class.java))
+                } else {
+                    startActivity(Intent(activity, LoginActivity::class.java))
+                }
             }
         }
     }

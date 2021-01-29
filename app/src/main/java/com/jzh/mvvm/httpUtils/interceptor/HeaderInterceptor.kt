@@ -1,8 +1,6 @@
 package com.jzh.mvvm.httpUtils.interceptor
 
-import com.jzh.mvvm.constant.Constant
 import com.jzh.mvvm.constant.HttpConstant
-import com.jzh.mvvm.utils.MyMMKV
 import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -12,8 +10,6 @@ import okhttp3.Response
  * Created by jzh on 2020-12-23.
  */
 class HeaderInterceptor : Interceptor {
-
-    private var token = mmkv.decodeString(Constant.TOKEN_KEY)
 
     override fun intercept(chain: Interceptor.Chain): Response {
 

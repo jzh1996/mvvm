@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jzh.mvvm.ui.view.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_item_todo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/item_todo_imp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:background="@drawable/bg_fresh"
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingTop="@dimen/dp_2"
+            android:paddingRight="@dimen/dp_4"
+            android:paddingBottom="@dimen/dp_2"
+            android:text="@string/important"
+            android:textColor="@color/Red"
+            android:textSize="@dimen/sp_10"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/item_todo_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_toEndOf="@id/item_todo_imp"
+            android:layout_toRightOf="@id/item_todo_imp"
+            android:background="@drawable/bg_fresh"
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingTop="@dimen/dp_2"
+            android:paddingRight="@dimen/dp_4"
+            android:paddingBottom="@dimen/dp_2"
+            android:text="@string/todo"
+            android:textColor="@color/Red"
+            android:textSize="@dimen/sp_10"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_todo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/item_todo_status"
+            android:layout_toRightOf="@id/item_todo_status"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="@dimen/dp_10"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:id="@+id/item_todo_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:padding="10dp"
+            android:text="@string/time"
+            android:textColor="@color/item_date"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tv_todo_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_todo_title"
+            android:layout_marginEnd="100dp"
+            android:layout_marginRight="100dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingBottom="10dp"
+            android:text="@string/app_name"
+            android:textColor="@color/item_desc"
+            android:textSize="@dimen/sp_14"
+            android:visibility="invisible" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_01"
+            android:layout_alignParentBottom="true"
+            android:background="@color/item_hen" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/item_todo_done"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/Green"
+            android:paddingLeft="@dimen/dp_6"
+            android:paddingRight="@dimen/dp_6"
+            android:text="@string/done"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12" />
+
+        <Button
+            android:id="@+id/item_todo_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/Red"
+            android:paddingLeft="@dimen/dp_6"
+            android:paddingRight="@dimen/dp_6"
+            android:text="@string/delete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+</com.jzh.mvvm.ui.view.SwipeItemLayout>

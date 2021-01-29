@@ -1,5 +1,6 @@
 package com.jzh.mvvm.httpUtils
 
+import com.chad.library.adapter.base.entity.SectionEntity
 import java.io.Serializable
 
 data class ResponseData<out T>(
@@ -206,4 +207,58 @@ data class CollectionArticle(
     val userId: Int,
     val visible: Int,
     val zan: Int
+)
+
+// TODO工具 类型
+data class TodoTypeBean(
+    val type: Int,
+    val name: String,
+    var isSelected: Boolean
+)
+
+// TODO实体类
+data class TodoBean(
+    val id: Int,
+    val completeDate: String,
+    val completeDateStr: String,
+    val content: String,
+    val date: Long,
+    val dateStr: String,
+    var status: Int,
+    val title: String,
+    val type: Int,
+    val userId: Int,
+    val priority: Int
+) : Serializable
+
+data class TodoListBean(
+    val date: Long,
+    val todoList: MutableList<TodoBean>
+)
+
+data class TodoResponseBody(
+    val curPage: Int,
+    val datas: MutableList<TodoBean>,
+    val offset: Int,
+    val over: Boolean,
+    val pageCount: Int,
+    val size: Int,
+    val total: Int
+)
+
+// 新增TODO的实体
+data class AddTodoBean(
+    val title: String,
+    val content: String,
+    val date: String,
+    val type: Int
+)
+
+// 更新TODO的实体
+data class UpdateTodoBean(
+    val title: String,
+    val content: String,
+    val date: String,
+    val status: Int,
+    val type: Int
 )

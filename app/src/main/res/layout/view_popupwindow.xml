@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="100dp"
+    android:background="@drawable/pop_window_dialog_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_pop_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="全部"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_16" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="@dimen/dp_01"
+        android:background="@color/item_hen" />
+
+    <TextView
+        android:id="@+id/tv_pop_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="已完成"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_16" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="@dimen/dp_01"
+        android:background="@color/item_hen" />
+
+    <TextView
+        android:id="@+id/tv_pop_todo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="待办"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_16" />
+
+</LinearLayout>

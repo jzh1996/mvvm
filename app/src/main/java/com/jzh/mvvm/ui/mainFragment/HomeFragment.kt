@@ -43,7 +43,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
     private val linearLayoutManager by lazy { LinearLayoutManager(activity) }
     private lateinit var imgAdapter: ImageAdapter
     private var bannerView: com.youth.banner.Banner<Banner, ImageAdapter>? = null
-    private val homeAdapter: HomeAdapter by lazy { HomeAdapter() }
+    private val homeAdapter by lazy { HomeAdapter() }
 
     override fun providerVMClass(): Class<HomeViewModel> = HomeViewModel::class.java
 

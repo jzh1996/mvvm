@@ -64,5 +64,17 @@
     <string name="cancle">取消</string>
     <string name="sure">确认</string>
     <string name="welcome_register">欢迎注册</string>
+    <string name="important">重要</string>
+    <string name="nomal">一般</string>
+    <string name="done">标为已完成</string>
+    <string name="daiban">标为待办</string>
+    <string name="todo">待办</string>
+    <string name="time">2021-01-01</string>
+    <string name="date">时间:</string>
+    <string name="title">标题:</string>
+    <string name="priority">优先级:</string>
+    <string name="compulsory">必填</string>
+    <string name="non_compulsory">非必填</string>
+    <string name="details">内容:</string>
 
 </resources>

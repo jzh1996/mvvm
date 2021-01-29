@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 带左滑删除的item
+ * 使用这个view会导致item点击事件无效，所以需要在在ChildClick添加item点击事件
  * Created by jzh on 2021-1-20.
  */
 public class SwipeItemLayout extends ViewGroup {

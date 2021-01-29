@@ -19,6 +19,8 @@ import com.jzh.mvvm.R
 import com.jzh.mvvm.constant.Constant
 import com.tencent.mmkv.MMKV
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * 得到一个自定义的AgentWebView
@@ -122,4 +124,23 @@ fun isInvalidClick(v: View, defaultTime: Long = 500): Boolean {
     val isInvalid = curTimeStamp - lastClickTimeStamp < defaultTime
     if (!isInvalid) v.setTag(R.id.invalid_click, curTimeStamp)
     return isInvalid
+}
+
+/**
+ * 格式化当前日期
+ */
+fun formatCurrentDate(): String {
+    val sdf = SimpleDateFormat("yyyy-MM-dd")
+    return sdf.format(Date())
+}
+
+/**
+ * String 转 Calendar
+ */
+fun String.stringToCalendar(): Calendar {
+    val sdf = SimpleDateFormat("yyyy-MM-dd")
+    val date = sdf.parse(this)
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    return calendar
 }

@@ -16,16 +16,11 @@ import com.jzh.mvvm.constant.Constant
 import com.jzh.mvvm.mvvm.mainViewModel.MyViewModel
 import com.jzh.mvvm.ui.activity.collect.MyCollectActivity
 import com.jzh.mvvm.ui.activity.login.LoginActivity
-import com.jzh.mvvm.ui.activity.my.MyScoreActivity
-import com.jzh.mvvm.ui.activity.my.MyShareActivity
-import com.jzh.mvvm.ui.activity.my.TodoActivity
+import com.jzh.mvvm.ui.activity.my.*
 import com.jzh.mvvm.ui.view.BottomDialog
 import com.jzh.mvvm.ui.view.MyDialog
-import com.jzh.mvvm.utils.FileUtils
+import com.jzh.mvvm.utils.*
 import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
-import com.jzh.mvvm.utils.captureImage
-import com.jzh.mvvm.utils.selectImage
-import com.jzh.mvvm.utils.toast
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.my_fragment.*
 import java.io.File
@@ -45,7 +40,6 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
     private val bgType = "backGround"
     private var type = ""
 
-
     override fun getLayoutId(): Int = R.layout.my_fragment
     override fun initData() {
         tv_name.setOnClickListener(this)
@@ -56,6 +50,8 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
         ll_my_share.setOnClickListener(this)
         ll_my_logout.setOnClickListener(this)
         iv_todo.setOnClickListener(this)
+        ll_my_system.setOnClickListener(this)
+        ll_my_about.setOnClickListener(this)
         LiveEventBus.get(Constant.IS_LOGIN, Boolean::class.java).observe(this, {
             if (it) {
                 startHttp()
@@ -63,6 +59,11 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
                 tv_name.text = resources.getString(R.string.my_login)
                 my_rank_num.text = resources.getString(R.string.my_score)
             }
+        })
+        LiveEventBus.get("myBadge", Boolean::class.java).observe(this, {
+            if (!SettingUtil.getIsShowBadge()) return@observe
+            if (it) tv_un_todo.visibility = View.VISIBLE
+            else tv_un_todo.visibility = View.GONE
         })
         setImage(File(mmkv.decodeString("HeadPic", "")))
         if (mmkv.decodeString("bgHeadPic", "") != "")
@@ -80,9 +81,11 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
     @SuppressLint("SetTextI18n")
     override fun startHttp() {
         if (mmkv.decodeBool(Constant.IS_LOGIN, false)) {
+            getTodoBadge()
             tv_name.text =
                 mmkv.decodeString(Constant.USERNAME_KEY, resources.getString(R.string.my_login))
-            my_rank_num.text = "${resources.getString(R.string.my_score)}(${mmkv.decodeString(Constant.USERNAME_COIN_COUNT)})"
+            my_rank_num.text =
+                "${resources.getString(R.string.my_score)}(${mmkv.decodeString(Constant.USERNAME_COIN_COUNT)})"
             viewModel.getUserInfo().observe(this, {
                 refreshLayout.finishRefresh()
                 tv_name.text = it.username
@@ -96,6 +99,18 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
             tv_name.text = resources.getString(R.string.my_login)
             my_rank_num.text = resources.getString(R.string.my_score)
         }
+    }
+
+    private fun getTodoBadge() {
+        val map = mutableMapOf<String, Any>()
+        map["status"] = 0
+        viewModel.getTodoList(1, map).observe(this, {
+            hideLoading()
+            it.datas.let { todoList ->
+                if (todoList.size > 0) LiveEventBus.get("myBadge").post(true)
+                else LiveEventBus.get("myBadge").post(false)
+            }
+        })
     }
 
     private fun setImage(file: File?) {
@@ -178,11 +193,16 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
             }
             iv_todo -> {
                 if (mmkv.decodeBool(Constant.IS_LOGIN, false)) {
-                    startActivity(Intent(activity, TodoActivity::class.java))
+                    startActivityForResult(
+                        Intent(activity, TodoActivity::class.java),
+                        Constant.FROM_TODO
+                    )
                 } else {
                     startActivity(Intent(activity, LoginActivity::class.java))
                 }
             }
+            ll_my_system -> startActivity(Intent(activity, SystemActivity::class.java))
+            ll_my_about -> startActivity(Intent(activity, AboutActivity::class.java))
         }
     }
 
@@ -269,6 +289,7 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
                         e.printStackTrace()
                     }
                 }
+                Constant.FROM_TODO -> getTodoBadge()
             }
         }
     }

@@ -4,10 +4,13 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.mvvm.viewModel.MyScoreActivityViewModel
 import com.jzh.mvvm.ui.adapter.RankAdapter
+import com.jzh.mvvm.utils.RvAnimUtils
+import com.jzh.mvvm.utils.SettingUtil
 import com.jzh.mvvm.webView.WebViewActivity
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.activity_rank.*
@@ -56,6 +59,7 @@ class RankActivity : BaseViewModelActivity<MyScoreActivityViewModel>() {
                 getRankList(page)
             }
         }
+        RvAnimUtils.setAnim(mAdapter, SettingUtil.getListAnimal())
     }
 
     override fun startHttp() {

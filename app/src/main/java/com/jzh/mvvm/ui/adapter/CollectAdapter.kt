@@ -16,10 +16,11 @@ class CollectAdapter :
 
     override fun convert(holder: BaseViewHolder, item: CollectionArticle) {
         val name = if (item.author.isNotEmpty()) item.author else "匿名"
+        val chapterName = if (item.chapterName.isNotEmpty()) item.chapterName else "站外收藏"
         holder.setText(R.id.tv_article_title, Html.fromHtml(item.title))
             .setText(R.id.tv_article_author, name)
             .setText(R.id.tv_article_date, item.niceDate)
-            .setText(R.id.tv_article_chapterName, item.chapterName)
+            .setText(R.id.tv_article_chapterName, chapterName)
             .setImageResource(R.id.iv_like, R.drawable.like)
         if (item.envelopePic.isNotEmpty()) {
             holder.getView<ImageView>(R.id.iv_article_thumbnail)

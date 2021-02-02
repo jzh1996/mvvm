@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.constant.Constant
@@ -14,6 +15,8 @@ import com.jzh.mvvm.ui.activity.share.ShareActivity
 import com.jzh.mvvm.ui.adapter.ShareAdapter
 import com.jzh.mvvm.ui.view.SwipeItemLayout
 import com.jzh.mvvm.utils.MyMMKV
+import com.jzh.mvvm.utils.RvAnimUtils
+import com.jzh.mvvm.utils.SettingUtil
 import com.jzh.mvvm.webView.WebViewActivity
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.activity_my_share.*
@@ -101,6 +104,7 @@ class MyShareActivity : BaseViewModelActivity<ShareActivityViewModel>() {
                 }
             }
         }
+        RvAnimUtils.setAnim(mAdapter, SettingUtil.getListAnimal())
     }
 
     override fun startHttp() {

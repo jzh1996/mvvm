@@ -4,6 +4,7 @@ import com.jzh.mvvm.base.BaseRepository
 import com.jzh.mvvm.httpUtils.LoginData
 import com.jzh.mvvm.httpUtils.ResponseData
 import com.jzh.mvvm.httpUtils.RetrofitClient
+import com.jzh.mvvm.httpUtils.TodoResponseBody
 
 /**
  * 通用的Repository
@@ -43,4 +44,12 @@ open class CommonRepository : BaseRepository() {
     suspend fun removeCollectArticle(id: Int, originId: Int): ResponseData<Any> = request {
         RetrofitClient.service.removeCollectArticle(id, originId)
     }
+
+    suspend fun getTodoList(
+        page: Int,
+        map: MutableMap<String, Any>
+    ): ResponseData<TodoResponseBody> =
+        request {
+            RetrofitClient.service.getTodoList(page, map)
+        }
 }

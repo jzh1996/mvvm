@@ -45,6 +45,7 @@ import com.jzh.mvvm.ui.mainFragment.*
 import com.jzh.mvvm.utils.DensityUtil.dip2px
 import com.jzh.mvvm.utils.FileUtils
 import com.jzh.mvvm.utils.PermissionUtils
+import com.jzh.mvvm.utils.SettingUtil
 import com.jzh.mvvm.utils.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.my_fragment.*
@@ -108,7 +109,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
             android.R.anim.fade_in,
             android.R.anim.fade_out
         )
-        setTop(resources.getString(R.string.app_name), R.drawable.search, {})
+        setTop(SettingUtil.getDefaultPage(), R.drawable.search, {})
         toolbar_title.setTextColor(ContextCompat.getColor(this, R.color.white))
         toolbar_left_image_back.setImageDrawable(
             ContextCompat.getDrawable(this, R.drawable.group)
@@ -182,6 +183,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
             TextBadgeItem().setBorderWidth(1).setText(resources.getString(R.string.zero))
         homeBadge.hide()
         LiveEventBus.get("homeBadge", Int::class.java).observe(this, {
+            if (!SettingUtil.getIsShowBadge()) return@observe
             when {
                 it == 0 -> homeBadge.hide()
                 it > 99 -> {
@@ -197,6 +199,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
         val myBadge = ShapeBadgeItem().setShape(ShapeBadgeItem.SHAPE_OVAL).setSizeInDp(this, 10, 10)
         myBadge.hide()
         LiveEventBus.get("myBadge", Boolean::class.java).observe(this, {
+            if (!SettingUtil.getIsShowBadge()) return@observe
             if (!it) myBadge.hide() else myBadge.show()
         })
         // 设置模式
@@ -216,13 +219,10 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
             .setInActiveColor(R.color.grey_search)//图标和文本激活或选中的颜色，默认颜色为Theme’s Primary Color
             .setBarBackgroundColor(R.color.white)//整个空控件的背景色，默认颜色为Color.WHITE
             .setTabSelectedListener(this)//回调方法
-            .setFirstSelectedPosition(0)
+            .setFirstSelectedPosition(SettingUtil.getDefaultPage(this))
             .initialise()
         setBottomNavigationItem(bottomNavigationBar, 2, 22, 12)
-        LiveEventBus.get("isHideBottom", Boolean::class.java).observe(this) {
-            if (it) bottomNavigationBar.visibility = View.GONE else bottomNavigationBar.visibility =
-                View.VISIBLE
-        }
+        viewPager.currentItem = bottomNavigationBar.currentSelectedPosition
     }
 
     private fun initViewPager() {
@@ -247,7 +247,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
         viewPager.run {
             adapter = MainPagerAdapter()
             //解决滑动页面后再回来会刷新页面的问题，因为viewPager默认只预加载一页，多的页面会回收
-//            offscreenPageLimit = fragments.size
+            offscreenPageLimit = fragments.size
             addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrolled(
                     position: Int,
@@ -384,7 +384,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Constant.IMAGE_CAPTURE || requestCode == Constant.IMAGE_SELECT) {
+        if (requestCode == Constant.IMAGE_CAPTURE || requestCode == Constant.IMAGE_SELECT || requestCode == Constant.FROM_TODO) {
             myFragment.onActivityResult(requestCode, resultCode, data)
         }
     }

@@ -1,6 +1,6 @@
 package com.jzh.mvvm.utils
 
-import android.graphics.Color
+import android.app.Activity
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseApplication
 import com.tencent.mmkv.MMKV
@@ -12,99 +12,52 @@ object SettingUtil {
     /**
      * 获取是否开启无图模式
      */
-    fun getIsNoPhotoMode(): Boolean {
-        return setting.getBoolean(
-            "switch_noPhotoMode",
-            false
+    fun getIsNoPhotoMode() = setting.decodeBool("switch_no_img", false)
+    fun setIsNoPhotoMode(isShow: Boolean) = setting.encode("switch_no_img", isShow)
+
+    /**
+     * 获取是否开启显示首页置顶文章
+     */
+    fun getIsShowTopArticle() = setting.decodeBool("switch_show_top", true)
+    fun setIsShowTopArticle(isShow: Boolean) = setting.encode("switch_show_top", isShow)
+
+    /**
+     * 获取是否显示轮播图
+     */
+    fun getIsShowBanner() = setting.decodeBool("switch_show_banner", true)
+    fun setIsShowBanner(isShow: Boolean) = setting.encode("switch_show_banner", isShow)
+
+    /**
+     * 获取是否显示底部导航角标
+     */
+    fun getIsShowBadge() = setting.decodeBool("switch_show_badge", true)
+    fun setIsShowBadge(isShow: Boolean) = setting.encode("switch_show_badge", isShow)
+
+    /**
+     * 获取进入APP默认展示的页面
+     */
+    fun getDefaultPage(): String = setting.decodeString(
+        "default_page", BaseApplication.mContext.resources.getString(
+            R.string.home
         )
+    )
+
+    fun getDefaultPage(activity: Activity): Int {
+        return when (getDefaultPage()) {
+            activity.resources.getString(R.string.home) -> 0
+            activity.resources.getString(R.string.system) -> 1
+            activity.resources.getString(R.string.weixin) -> 2
+            activity.resources.getString(R.string.question) -> 3
+            activity.resources.getString(R.string.my) -> 4
+            else -> 0
+        }
     }
+
+    fun setDefaultPage(pageStr: String) = setting.encode("default_page", pageStr)
 
     /**
-     * 获取是否开启显示首页置顶文章，true: 不显示  false: 显示
+     * 获取列表动画
      */
-    fun getIsShowTopArticle(): Boolean {
-        return setting.getBoolean("switch_show_top", true)
-    }
-
-    /**
-     * 获取主题颜色
-     */
-    fun getColor(): Int {
-        val defaultColor = BaseApplication.mContext.resources.getColor(R.color.colorPrimary)
-        val color = setting.getInt("color", defaultColor)
-        return if (color != 0 && Color.alpha(color) != 255) {
-            defaultColor
-        } else color
-    }
-
-    /**
-     * 设置主题颜色
-     */
-    fun setColor(color: Int) {
-        setting.edit().putInt("color", color).apply()
-    }
-
-    /**
-     * 获取是否开启导航栏上色
-     */
-    fun getNavBar(): Boolean {
-        return setting.getBoolean("nav_bar", false)
-    }
-
-    /**
-     * 设置夜间模式
-     */
-    fun setIsNightMode(flag: Boolean) {
-        setting.edit().putBoolean("switch_nightMode", flag).apply()
-    }
-
-    /**
-     * 获取是否开启夜间模式
-     */
-    fun getIsNightMode(): Boolean {
-        return setting.getBoolean("switch_nightMode", false)
-    }
-
-    /**
-     * 获取是否开启自动切换夜间模式
-     */
-    fun getIsAutoNightMode(): Boolean {
-        return setting.getBoolean("auto_nightMode", false)
-    }
-
-    fun getNightStartHour(): String? {
-        return setting.getString("night_startHour", "22")
-    }
-
-    fun setNightStartHour(nightStartHour: String) {
-        setting.edit().putString("night_startHour", nightStartHour).apply()
-    }
-
-    fun getNightStartMinute(): String? {
-        return setting.getString("night_startMinute", "00")
-    }
-
-    fun setNightStartMinute(nightStartMinute: String) {
-        setting.edit().putString("night_startMinute", nightStartMinute).apply()
-    }
-
-    fun getDayStartHour(): String? {
-        return setting.getString("day_startHour", "06")
-    }
-
-    fun setDayStartHour(dayStartHour: String) {
-        setting.edit().putString("day_startHour", dayStartHour).apply()
-    }
-
-    fun getDayStartMinute(): String? {
-        return setting.getString("day_startMinute", "00")
-    }
-
-    fun setDayStartMinute(dayStartMinute: String) {
-        setting.edit().putString("day_startMinute", dayStartMinute).apply()
-    }
-
-    fun getAutoPlayAble(): Boolean {
-        return setting.getBoolean("isAutoPlayAble", true)
-    }
+    fun getListAnimal() = setting.decodeString("list_animal", "无")
+    fun setListAnimal(animal: String) = setting.encode("list_animal", animal)
 }

@@ -101,6 +101,7 @@
                             android:padding="10dp"
                             android:text="@string/my_score"
                             android:textColor="@color/color_black1"
+                            android:textSize="@dimen/sp_14"
                             app:drawableLeftCompat="@drawable/score"
                             app:drawableRightCompat="@drawable/right" />
                     </LinearLayout>
@@ -119,6 +120,7 @@
                             android:padding="10dp"
                             android:text="@string/my_collection"
                             android:textColor="@color/color_black1"
+                            android:textSize="@dimen/sp_14"
                             app:drawableLeftCompat="@drawable/collection"
                             app:drawableRightCompat="@drawable/right" />
                     </LinearLayout>
@@ -137,15 +139,16 @@
                             android:padding="10dp"
                             android:text="@string/my_share"
                             android:textColor="@color/color_black1"
+                            android:textSize="@dimen/sp_14"
                             app:drawableLeftCompat="@drawable/share"
                             app:drawableRightCompat="@drawable/right" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_my_system"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -155,15 +158,16 @@
                             android:padding="10dp"
                             android:text="@string/my_system"
                             android:textColor="@color/color_black1"
+                            android:textSize="@dimen/sp_14"
                             app:drawableLeftCompat="@drawable/system"
                             app:drawableRightCompat="@drawable/right" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_my_about"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -173,6 +177,7 @@
                             android:padding="10dp"
                             android:text="@string/my_about"
                             android:textColor="@color/color_black1"
+                            android:textSize="@dimen/sp_14"
                             app:drawableLeftCompat="@drawable/about"
                             app:drawableRightCompat="@drawable/right" />
                     </LinearLayout>
@@ -191,6 +196,7 @@
                             android:padding="10dp"
                             android:text="@string/my_logout"
                             android:textColor="@color/color_black1"
+                            android:textSize="@dimen/sp_14"
                             app:drawableLeftCompat="@drawable/logout"
                             app:drawableRightCompat="@drawable/right" />
                     </LinearLayout>

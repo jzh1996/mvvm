@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelFragment
 import com.jzh.mvvm.constant.Constant
@@ -12,6 +13,8 @@ import com.jzh.mvvm.mvvm.viewModel.KnowListViewModel
 import com.jzh.mvvm.ui.activity.login.LoginActivity
 import com.jzh.mvvm.ui.adapter.KnowledgeListAdapter
 import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
+import com.jzh.mvvm.utils.RvAnimUtils
+import com.jzh.mvvm.utils.SettingUtil
 import com.jzh.mvvm.utils.toast
 import com.jzh.mvvm.webView.WebViewActivity
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -87,6 +90,10 @@ class KnowListFragment : BaseViewModelFragment<KnowListViewModel>() {
                 }
             }
         }
+        RvAnimUtils.setAnim(knowledgeListAdapter, SettingUtil.getListAnimal())
+        LiveEventBus.get("rv_anim").observe(this, {
+            RvAnimUtils.setAnim(knowledgeListAdapter, it)
+        })
     }
 
     private fun initKnowledgeList(page: Int) {

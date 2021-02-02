@@ -7,10 +7,12 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import com.jzh.mvvm.base.BaseApplication
 import com.jzh.mvvm.constant.Constant
 import java.io.*
+import java.math.BigDecimal
 
 
 class FileUtils {
@@ -189,7 +191,7 @@ class FileUtils {
         }
 
         /**
-         * 判断改文件是否是一个标准文件
+         * 判断该文件是否是一个标准文件
          *
          * @param fileName
          * 判断的文件路径
@@ -303,6 +305,88 @@ class FileUtils {
             } finally {
                 cursor?.close()
             }
+        }
+
+        fun isSDCardAlive(): Boolean {
+            return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
+        }
+
+        fun delete(file: File?, except: String?) {
+            if (file == null) {
+                return
+            }
+            if (file.isDirectory) {
+                val children = file.list()
+                for (c in children) {
+                    val childFile = File(file, c)
+                    if (!TextUtils.equals(childFile.name, except)) {
+                        delete(childFile)
+                    }
+                }
+            } else {
+                if (!TextUtils.equals(file.name, except)) {
+                    file.delete()
+                }
+            }
+        }
+
+        fun delete(file: File?): Boolean {
+            if (file == null) {
+                return false
+            }
+            if (file.isDirectory) {
+                val children = file.list()
+                for (c in children) {
+                    val success = delete(File(file, c))
+                    if (!success) {
+                        return false
+                    }
+                }
+            }
+            return file.delete()
+        }
+
+        fun getSize(file: File): Long {
+            var size: Long = 0
+            try {
+                val fileList = file.listFiles()
+                for (f in fileList) {
+                    size = if (f.isDirectory) {
+                        size + getSize(f)
+                    } else {
+                        size + f.length()
+                    }
+                }
+            } catch (ignore: java.lang.Exception) {
+            }
+            return size
+        }
+
+        /**
+         * 格式化单位
+         */
+        fun formatSize(size: Double): String? {
+            val kiloByte = size / 1024
+            if (kiloByte < 1) {
+                return "0KB"
+            }
+            val megaByte = kiloByte / 1024
+            if (megaByte < 1) {
+                val result1 = BigDecimal(java.lang.Double.toString(kiloByte))
+                return result1.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB"
+            }
+            val gigaByte = megaByte / 1024
+            if (gigaByte < 1) {
+                val result2 = BigDecimal(java.lang.Double.toString(megaByte))
+                return result2.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB"
+            }
+            val teraBytes = gigaByte / 1024
+            if (teraBytes < 1) {
+                val result3 = BigDecimal(java.lang.Double.toString(gigaByte))
+                return result3.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB"
+            }
+            val result4 = BigDecimal(teraBytes)
+            return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB"
         }
     }
 }

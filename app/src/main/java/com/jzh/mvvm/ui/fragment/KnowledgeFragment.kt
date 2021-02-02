@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelFragment
 import com.jzh.mvvm.httpUtils.KnowledgeTreeBody
@@ -11,6 +12,8 @@ import com.jzh.mvvm.constant.Constant
 import com.jzh.mvvm.mvvm.viewModel.KnowledgeViewModel
 import com.jzh.mvvm.ui.activity.common.KnowledgeActivity
 import com.jzh.mvvm.ui.adapter.KnowledgeAdapter
+import com.jzh.mvvm.utils.RvAnimUtils
+import com.jzh.mvvm.utils.SettingUtil
 import kotlinx.android.synthetic.main.knowledge_fragment.*
 import java.io.Serializable
 import java.lang.Exception
@@ -46,6 +49,10 @@ class KnowledgeFragment : BaseViewModelFragment<KnowledgeViewModel>() {
                 }
             })
         }
+        RvAnimUtils.setAnim(knowledgeAdapter, SettingUtil.getListAnimal())
+        LiveEventBus.get("rv_anim").observe(this, {
+            RvAnimUtils.setAnim(knowledgeAdapter, it)
+        })
     }
 
     override fun startHttp() {

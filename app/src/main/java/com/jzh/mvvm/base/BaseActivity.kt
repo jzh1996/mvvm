@@ -103,7 +103,7 @@ abstract class BaseActivity : AppCompatActivity() {
             mmkv.encode("max_size", resources.displayMetrics.heightPixels)
         }
         setWindowStatusTransparent(this)
-        setContentView(getLayoutId())
+        if (getLayoutId() > 0) setContentView(getLayoutId())
         initData()
         initView()
         doReConnected()

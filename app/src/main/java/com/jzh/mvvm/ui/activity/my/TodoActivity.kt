@@ -11,11 +11,14 @@ import android.widget.PopupWindow
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.mvvm.viewModel.TodoActivityViewModel
 import com.jzh.mvvm.ui.adapter.TodoAdapter
 import com.jzh.mvvm.ui.view.SwipeItemLayout
+import com.jzh.mvvm.utils.RvAnimUtils
+import com.jzh.mvvm.utils.SettingUtil
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.activity_todo.*
 import kotlinx.android.synthetic.main.item_todo_list.view.*
@@ -111,6 +114,7 @@ class TodoActivity : BaseViewModelActivity<TodoActivityViewModel>() {
                 }
             }
         }
+        RvAnimUtils.setAnim(mAdapter, SettingUtil.getListAnimal())
         floating_action_btn.run {
             setOnClickListener {
                 if (!this@TodoActivity::popWindow.isInitialized) initPopWindow(it)
@@ -173,7 +177,17 @@ class TodoActivity : BaseViewModelActivity<TodoActivityViewModel>() {
         viewModel.getTodoList(page + 1, map).observe(this, {
             hideLoading()
             it.datas.let { todoList ->
+                setResult(RESULT_OK)
                 mAdapter.run {
+                    var hasTodo = false
+                    for (i in 0 until todoList.size) {
+                        if (todoList[i].status == 0) {
+                            hasTodo = true
+                            break
+                        }
+                    }
+                    if (hasTodo) LiveEventBus.get("myBadge").post(true)
+                    else LiveEventBus.get("myBadge").post(false)
                     if (isRefresh) {
                         refreshLayout.finishRefresh()
                         setList(todoList)
@@ -189,11 +203,15 @@ class TodoActivity : BaseViewModelActivity<TodoActivityViewModel>() {
     }
 
     private fun updateTodoById(id: Int, status: Int) {
-        viewModel.updateTodoById(id, status).observe(this, {})
+        viewModel.updateTodoById(id, status).observe(this, {
+            setResult(RESULT_OK)
+        })
     }
 
     private fun deleteTodoById(id: Int) {
-        viewModel.deleteTodoById(id).observe(this, {})
+        viewModel.deleteTodoById(id).observe(this, {
+            setResult(RESULT_OK)
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

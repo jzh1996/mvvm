@@ -4,11 +4,14 @@ import android.app.ActivityOptions
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.httpUtils.Article
 import com.jzh.mvvm.base.BaseViewModelFragment
 import com.jzh.mvvm.mvvm.viewModel.NavigationViewModel
 import com.jzh.mvvm.ui.adapter.NavigationAdapter
+import com.jzh.mvvm.utils.RvAnimUtils
+import com.jzh.mvvm.utils.SettingUtil
 import com.jzh.mvvm.webView.WebViewActivity
 import kotlinx.android.synthetic.main.navigation_fragment.*
 import java.lang.Exception
@@ -53,6 +56,10 @@ class NavigationFragment : BaseViewModelFragment<NavigationViewModel>() {
                 }
             })
         }
+        RvAnimUtils.setAnim(navigationAdapter, SettingUtil.getListAnimal())
+        LiveEventBus.get("rv_anim").observe(this, {
+            RvAnimUtils.setAnim(navigationAdapter, it)
+        })
     }
 
     override fun startHttp() {

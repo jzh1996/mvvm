@@ -3,6 +3,7 @@ package com.jzh.mvvm.mvvm.viewModel
 import androidx.lifecycle.LiveData
 import com.jzh.mvvm.base.BaseViewModel
 import com.jzh.mvvm.httpUtils.LoginData
+import com.jzh.mvvm.httpUtils.TodoResponseBody
 import com.jzh.mvvm.mvvm.repository.CommonRepository
 import com.jzh.mvvm.utils.SingleLiveEvent
 
@@ -20,6 +21,15 @@ open class CommonViewModel : BaseViewModel() {
     private var loginData = SingleLiveEvent<LoginData>()
     private var logoutData = SingleLiveEvent<Any>()
     private var registerData = SingleLiveEvent<LoginData>()
+    private var data = SingleLiveEvent<TodoResponseBody>()
+
+    fun getTodoList(page: Int, map: MutableMap<String, Any>): LiveData<TodoResponseBody> {
+        launchUI {
+            val res = repository.getTodoList(page, map)
+            data.value = res.data
+        }
+        return data
+    }
 
     fun addCollectArticle(id: Int): LiveData<Any> {
         launchUI {

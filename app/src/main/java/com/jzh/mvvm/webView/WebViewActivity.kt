@@ -1,13 +1,20 @@
 package com.jzh.mvvm.webView
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.just.agentweb.AgentWeb
@@ -15,24 +22,33 @@ import com.just.agentweb.AgentWebView
 import com.just.agentweb.WebViewClient
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseActivity
+import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.constant.Constant
+import com.jzh.mvvm.mvvm.viewModel.CommonViewModel
+import com.jzh.mvvm.ui.activity.login.LoginActivity
+import com.jzh.mvvm.ui.activity.my.MyShareActivity
+import com.jzh.mvvm.utils.MyMMKV
+import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
 import com.jzh.mvvm.utils.SettingUtil
 import com.jzh.mvvm.utils.getAgentWebView
 import com.jzh.mvvm.utils.toast
 import kotlinx.android.synthetic.main.activity_web_view.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import kotlinx.android.synthetic.main.view_popupwindow.view.*
 
 /**
  * https://github.com/Justson/AgentWeb
  * Created by jzh on 2020-12-28.
  */
-class WebViewActivity : BaseActivity() {
+class WebViewActivity : BaseViewModelActivity<CommonViewModel>() {
 
     private var mAgentWeb: AgentWeb? = null
+    private lateinit var webView: WebView
     private lateinit var mWebClient: WebViewClient
     private var shareTitle: String = ""
     private var shareUrl: String = ""
     private var shareId: Int = -1
+    private lateinit var popWindow: PopupWindow
 
     companion object {
 
@@ -54,9 +70,9 @@ class WebViewActivity : BaseActivity() {
 
     override fun getLayoutId(): Int = R.layout.activity_web_view
 
-    override fun initData() {
+    override fun providerVMClass() = CommonViewModel::class.java
 
-    }
+    override fun initData() {}
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun initView() {
@@ -67,13 +83,15 @@ class WebViewActivity : BaseActivity() {
         }
         setTop(shareTitle, R.drawable.points)
         toolbar_subtitle_image.setOnClickListener {
-            toast("分享")
+            if (!this@WebViewActivity::popWindow.isInitialized) initPopWindow(it)
+            else if (popWindow.isShowing) popWindow.dismiss()
+            else popWindow.showAsDropDown(it, 0, 35)
         }
         initWebView()
     }
 
     private fun initWebView() {
-        val webView = AgentWebView(this)
+        webView = AgentWebView(this)
         val layoutParams = LinearLayout.LayoutParams(-1, -1)
         mWebClient = if (shareUrl.startsWith(JIAN_SHU)) JianShuWebClient() else BaseWebClient()
         mAgentWeb = getAgentWebView(
@@ -81,7 +99,7 @@ class WebViewActivity : BaseActivity() {
             webView,
             mWebClient,
             mWebChromeClient,
-            SettingUtil.getColor()
+            resources.getColor(R.color.colorPrimary)
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             AgentWebView.setWebContentsDebuggingEnabled(true)
@@ -142,4 +160,66 @@ class WebViewActivity : BaseActivity() {
     }
 
     override fun startHttp() {}
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initPopWindow(view: View) {
+        val popView = LayoutInflater.from(this).inflate(R.layout.view_popupwindow, null, false)
+        popView.tv_pop_all.text = "分享"
+        popView.tv_pop_done.text = "收藏"
+        popView.tv_pop_todo.text = "浏览器打开"
+        popWindow = PopupWindow(
+            popView,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        )
+        popWindow.run {
+            animationStyle = R.anim.fade_in
+            isTouchable = true
+            setTouchInterceptor { view, motionEvent ->
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+                return@setTouchInterceptor false
+            }
+            setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.white)))
+            showAsDropDown(view, 0, 35)
+            popView.tv_pop_all.setOnClickListener {
+                val intent = Intent()
+                intent.run {
+                    action = Intent.ACTION_SEND
+                    putExtra(
+                        Intent.EXTRA_TEXT, getString(
+                            R.string.share_article_url,
+                            getString(R.string.app_name), shareTitle, shareUrl
+                        )
+                    )
+                    type = Constant.CONTENT_SHARE_TYPE
+                    startActivity(Intent.createChooser(this, "分享"))
+                }
+                popWindow.dismiss()
+            }
+            popView.tv_pop_done.setOnClickListener {
+                if (mmkv.decodeBool(Constant.IS_LOGIN, false)) {
+                    if (webView.url != null) {
+                        viewModel.addCollectOutsideArticle(shareTitle, "匿名", webView.url.toString())
+                            .observe(this@WebViewActivity, {
+                                toast("收藏成功")
+                            })
+                    }
+                } else {
+                    startActivity(Intent(this@WebViewActivity, LoginActivity::class.java))
+                }
+                popWindow.dismiss()
+            }
+            popView.tv_pop_todo.setOnClickListener {
+                val intent = Intent()
+                intent.run {
+                    action = "android.intent.action.VIEW"
+                    data = Uri.parse(shareUrl)
+                    startActivity(this)
+                }
+                popWindow.dismiss()
+            }
+        }
+    }
 }

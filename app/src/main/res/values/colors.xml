@@ -11,11 +11,13 @@
     <color name="colorPrimary">#03a9f4</color>
     <color name="colorPrimaryDark">#56C7FA</color>
     <color name="colorAccent">@color/Cyan</color>
-    <color name="textColorPrimary">#616161</color>
+    <color name="textColorPrimary">#999999</color>
     <color name="viewBackground">@color/White</color>
     <color name="windowBackground">@color/color_gray5</color>
     <color name="list_divider">@color/Grey400</color>
     <color name="transparent">#00000000</color>
+
+    <color name="text_surface">#333333</color>
 
     <color name="color_toolbar">#FFFFFF</color>
     <color name="color_black1">#202020</color>

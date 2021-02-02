@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.constant.Constant
@@ -13,6 +14,8 @@ import com.jzh.mvvm.ui.activity.login.LoginActivity
 import com.jzh.mvvm.ui.activity.share.ShareActivity
 import com.jzh.mvvm.ui.adapter.HomeAdapter
 import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
+import com.jzh.mvvm.utils.RvAnimUtils
+import com.jzh.mvvm.utils.SettingUtil
 import com.jzh.mvvm.utils.toast
 import com.jzh.mvvm.webView.WebViewActivity
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -88,6 +91,7 @@ class GroupActivity : BaseViewModelActivity<GroupActivityViewModel>() {
                 }
             }
         }
+        RvAnimUtils.setAnim(mAdapter, SettingUtil.getListAnimal())
     }
 
     override fun startHttp() {

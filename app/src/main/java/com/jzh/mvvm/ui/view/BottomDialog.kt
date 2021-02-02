@@ -33,7 +33,7 @@ class BottomDialog : Dialog {
         setContentView(R.layout.bottom_dialog_view)
         val dialogWindow: Window? = this.window
         dialogWindow?.setGravity(Gravity.BOTTOM)
-        dialogWindow?.setWindowAnimations(R.style.botton_anim_style)
+        dialogWindow?.setWindowAnimations(R.style.bottom_anim_style)
         dialogWindow?.decorView?.setPadding(0, 0, 0, 0)
         dialogWindow?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,

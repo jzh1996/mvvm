@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.constant.Constant
@@ -11,6 +12,8 @@ import com.jzh.mvvm.mvvm.viewModel.MyScoreActivityViewModel
 import com.jzh.mvvm.ui.adapter.ScoreAdapter
 import com.jzh.mvvm.utils.AnimatorUtils
 import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
+import com.jzh.mvvm.utils.RvAnimUtils
+import com.jzh.mvvm.utils.SettingUtil
 import kotlinx.android.synthetic.main.activity_my_score.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.lang.Exception
@@ -43,6 +46,7 @@ class MyScoreActivity : BaseViewModelActivity<MyScoreActivityViewModel>() {
                 getScoreList(data.size / pageSize)
             }
         }
+        RvAnimUtils.setAnim(mAdapter, SettingUtil.getListAnimal())
     }
 
     override fun startHttp() {

@@ -1,6 +1,7 @@
 package com.jzh.mvvm.ui.activity
 
-import com.jzh.mvvm.R
+import android.content.Intent
+import com.jzh.mvvm.MainActivity
 import com.jzh.mvvm.base.BaseActivity
 
 /**
@@ -9,17 +10,13 @@ import com.jzh.mvvm.base.BaseActivity
  */
 class SplashActivity : BaseActivity() {
 
-    override fun getLayoutId(): Int = R.layout.activity_splash
-
+    override fun getLayoutId(): Int = 0
     override fun initData() {
-
+        startActivity(Intent(this,MainActivity::class.java))
+        finish()
     }
 
-    override fun initView() {
+    override fun initView() {}
 
-    }
-
-    override fun startHttp() {
-
-    }
+    override fun startHttp() {}
 }

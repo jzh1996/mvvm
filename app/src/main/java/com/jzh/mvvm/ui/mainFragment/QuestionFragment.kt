@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelFragment
 import com.jzh.mvvm.constant.Constant
@@ -11,6 +12,8 @@ import com.jzh.mvvm.mvvm.mainViewModel.QuestionViewModel
 import com.jzh.mvvm.ui.activity.login.LoginActivity
 import com.jzh.mvvm.ui.adapter.HomeAdapter
 import com.jzh.mvvm.utils.MyMMKV
+import com.jzh.mvvm.utils.RvAnimUtils
+import com.jzh.mvvm.utils.SettingUtil
 import com.jzh.mvvm.utils.toast
 import com.jzh.mvvm.webView.WebViewActivity
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -77,6 +80,10 @@ class QuestionFragment : BaseViewModelFragment<QuestionViewModel>() {
                 }
             }
         }
+        RvAnimUtils.setAnim(questionAdapter, SettingUtil.getListAnimal())
+        LiveEventBus.get("rv_anim").observe(this, {
+            RvAnimUtils.setAnim(questionAdapter, it)
+        })
     }
 
     override fun startHttp() {

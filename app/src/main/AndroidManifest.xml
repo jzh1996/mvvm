@@ -25,15 +25,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/BaseAppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.my.AddTodoActivity"></activity>
-        <activity android:name=".ui.activity.my.TodoActivity" />
-        <activity android:name=".ui.activity.login.RegisterActivity" />
-        <activity android:name=".ui.activity.my.MyShareActivity" />
-        <activity android:name=".ui.activity.my.MyScoreActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.SplashActivity"
+            android:theme="@style/BaseAppTheme.Splash"
             android:screenOrientation="behind">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,16 +39,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.SplashActivity"
+            android:name=".MainActivity"
             android:screenOrientation="behind">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".ui.activity.common.KnowledgeActivity" />
         <activity android:name=".ui.activity.collect.MyCollectActivity" />
@@ -62,6 +50,13 @@
         <activity android:name=".ui.activity.share.ShareActivity" />
         <activity android:name=".ui.activity.group.GroupActivity" />
         <activity android:name=".webView.WebViewActivity" />
+        <activity android:name=".ui.activity.my.AddTodoActivity" />
+        <activity android:name=".ui.activity.my.TodoActivity" />
+        <activity android:name=".ui.activity.login.RegisterActivity" />
+        <activity android:name=".ui.activity.my.MyShareActivity" />
+        <activity android:name=".ui.activity.my.MyScoreActivity" />
+        <activity android:name=".ui.activity.my.AboutActivity"/>
+        <activity android:name=".ui.activity.my.SystemActivity" />
     </application>
 
 </manifest>

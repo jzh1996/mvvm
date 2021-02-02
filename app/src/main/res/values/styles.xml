@@ -1,45 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="BaseAppTheme" parent="@style/Theme.AppCompat.DayNight">
+    <style name="BaseAppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="textColorPrimary">@color/textColorPrimary</item>
+        <item name="textColorPrimary">@color/textColorPrimary</item>-->
         <item name="viewBackground">@color/viewBackground</item>
-        <!--关闭启动窗口-->
-        <item name="android:windowDisablePreview">true</item>
-        <!--下面这个会影响启动时间-->
-<!--        <item name="android:listDivider">@drawable/bg_divider</item>-->
+        <item name="android:windowBackground">@color/viewBackground</item>
+        <!--CheckBox、EditText、Switch、Spinner、RadioButton等控件的默认色调-->
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="SplashActivityTheme" parent="BaseAppTheme.NoActionBar"/>
-
-    <style name="AppTheme" parent="BaseAppTheme.NoActionBar"/>
-
-    <style name="AppTheme.FullScreen" parent="@style/Theme.AppCompat.DayNight">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@null</item>
-        <item name="android:windowDisablePreview">true</item>
-    </style>
-
-    <style name="SplashTheme" parent="BaseAppTheme.NoActionBar">
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
-    <style name="BaseAppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!--状态栏透明-->
-        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
-    </style>
-
-    <style name="BaseAppTheme.NoActionBar.Slidable" parent="BaseAppTheme.NoActionBar">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+    <style name="BaseAppTheme.Splash">
+        <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -90,7 +64,12 @@
         <item name="android:textColor">?android:textColorSecondary</item>
     </style>
 
-    <style name="botton_anim_style">
+    <style name="bottom_anim_style">
+        <item name="android:windowEnterAnimation">@anim/dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_out_anim</item>
+    </style>
+
+    <style name="top_anim_style">
         <item name="android:windowEnterAnimation">@anim/dialog_in_anim</item>
         <item name="android:windowExitAnimation">@anim/dialog_out_anim</item>
     </style>

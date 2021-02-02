@@ -8,19 +8,10 @@ import com.jzh.mvvm.utils.SingleLiveEvent
 class TodoActivityViewModel : CommonViewModel() {
 
     private val repository = TodoRepository()
-    private var data = SingleLiveEvent<TodoResponseBody>()
     private var updateTodoById = SingleLiveEvent<Any>()
     private var deleteTodoById = SingleLiveEvent<Any>()
     private var addTodo = SingleLiveEvent<Any>()
     private var updateTodo = SingleLiveEvent<Any>()
-
-    fun getTodoList(page: Int, map: MutableMap<String, Any>): LiveData<TodoResponseBody> {
-        launchUI {
-            val res = repository.getTodoList(page, map)
-            data.value = res.data
-        }
-        return data
-    }
 
     fun updateTodoById(id: Int, status: Int): LiveData<Any> {
         launchUI {

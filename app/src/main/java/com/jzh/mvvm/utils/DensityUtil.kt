@@ -3,13 +3,8 @@ package com.jzh.mvvm.utils
 import android.app.Activity
 import android.content.Context
 import android.os.Build
-import android.util.DisplayMetrics
-import android.util.Log
-import android.view.View
 import androidx.annotation.RequiresApi
-import com.jzh.mvvm.base.BaseApplication
 import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
-import com.jzh.mvvm.utils.StatusBarUtils.getStatusBarHeight
 
 object DensityUtil {
     /**

@@ -52,11 +52,11 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="bottom"
-        android:background="#F5F5F5" />
+        android:background="@color/Grey100" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:orientation="vertical">
 
         <EditText
@@ -71,14 +71,14 @@
             android:hint="这里是弹窗内容"
             android:inputType="textMultiLine"
             android:padding="5dp"
-            android:textColor="@color/color_black1"
+            android:textColor="@color/text_surface"
             android:textSize="14sp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/color_gray5" />
+        android:background="@color/Grey100" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,14 +93,13 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/cancle"
-            android:textColor="@color/color_gray2"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textColor="@color/textColorPrimary"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:background="@color/color_gray5" />
+            android:background="@color/Grey100" />
 
         <TextView
             android:id="@+id/tv_dialog_sure"
@@ -110,8 +109,7 @@
             android:gravity="center"
             android:text="@string/sure"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 

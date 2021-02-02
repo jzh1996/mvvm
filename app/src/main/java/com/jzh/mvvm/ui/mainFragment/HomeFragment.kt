@@ -51,6 +51,11 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
     override fun initData() {}
 
     private fun initBanner() {
+        if (!SettingUtil.getIsShowBanner()) {
+            bannerView?.visibility = View.GONE
+            return
+        }
+        bannerView?.visibility = View.VISIBLE
         viewModel.getBanner().observe(activity!!, {
             imgAdapter = ImageAdapter(context ?: BaseApplication.mContext, it)
             bannerView?.run {
@@ -207,6 +212,10 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
                 }
             }
         }
+        RvAnimUtils.setAnim(homeAdapter, SettingUtil.getListAnimal())
+        LiveEventBus.get("rv_anim").observe(this, {
+            RvAnimUtils.setAnim(homeAdapter, it)
+        })
     }
 
     private fun initNetError() {

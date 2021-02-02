@@ -11,15 +11,14 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.constant.Constant
 import com.jzh.mvvm.mvvm.mainViewModel.HomeViewModel
 import com.jzh.mvvm.ui.activity.login.LoginActivity
 import com.jzh.mvvm.ui.adapter.HomeAdapter
-import com.jzh.mvvm.utils.MyMMKV
-import com.jzh.mvvm.utils.hideSoftInput
-import com.jzh.mvvm.utils.recycleViewCloseSoftInput
+import com.jzh.mvvm.utils.*
 import com.jzh.mvvm.webView.WebViewActivity
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.activity_search.*
@@ -128,6 +127,7 @@ class SearchActivity : BaseViewModelActivity<HomeViewModel>() {
                 }
             }
         }
+        RvAnimUtils.setAnim(homeAdapter, SettingUtil.getListAnimal())
     }
 
     override fun startHttp() {

@@ -6,14 +6,6 @@ import com.jzh.mvvm.httpUtils.TodoResponseBody
 
 class TodoRepository : CommonRepository() {
 
-    suspend fun getTodoList(
-        page: Int,
-        map: MutableMap<String, Any>
-    ): ResponseData<TodoResponseBody> =
-        request {
-            RetrofitClient.service.getTodoList(page, map)
-        }
-
     suspend fun updateTodoById(id: Int, status: Int): ResponseData<Any> =
         request {
             RetrofitClient.service.updateTodoById(id, status)

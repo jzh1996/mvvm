@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
+    <!--状态选择器 android:state_checked = true代表选中-->
+    <item android:state_checked="true">
+        <!--如果是选中,那么我们使用shape画一个-->
+        <shape>
+            <!--设置实心颜色,并且设置圆角-->
+            <solid android:color="@color/colorPrimaryDark" />
+            <corners android:radius="0dp" />
+        </shape>
+    </item>
+
+    <!--否则设置为绿色-->
+    <item android:state_checked="false">
+        <!--如果是未选中,那么我们使用shape画一个-->
+        <shape>
+            <!--设置描边形式,并且设置圆角-->
+            <solid android:color="@color/color_gray5" />
+            <stroke android:width="0.5dp" android:color="@color/white" />
+            <corners android:radius="0dp" />
+        </shape>
+    </item>
+</selector>

@@ -9,13 +9,13 @@
         android:id="@+id/tv_take_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
-        android:textStyle="bold"
         android:layout_marginTop="5dp"
-        android:padding="15dp"
         android:gravity="center"
-        android:text="@string/take_photo"/>
+        android:padding="15dp"
+        android:text="@string/take_photo"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:id="@+id/tv_from_album"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="15dp"
@@ -39,7 +39,7 @@
         android:id="@+id/tv_cancle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="15dp"

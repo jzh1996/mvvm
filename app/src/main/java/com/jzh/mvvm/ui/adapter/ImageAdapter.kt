@@ -14,6 +14,6 @@ open class ImageAdapter(private val context: Context, imgList: List<Banner>) :
     BannerImageAdapter<Banner>(imgList) {
 
     override fun onBindView(holder: BannerImageHolder?, data: Banner?, position: Int, size: Int) {
-        ImageLoader.load(context, data?.imagePath, holder?.imageView)
+        ImageLoader.loadBanner(context, data?.imagePath, holder?.imageView)
     }
 }

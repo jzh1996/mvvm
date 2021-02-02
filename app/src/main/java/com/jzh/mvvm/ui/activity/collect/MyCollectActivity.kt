@@ -4,10 +4,13 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.mvvm.viewModel.MyCollectActivityViewModel
 import com.jzh.mvvm.ui.adapter.CollectAdapter
+import com.jzh.mvvm.utils.RvAnimUtils
+import com.jzh.mvvm.utils.SettingUtil
 import com.jzh.mvvm.utils.isInvalidClick
 import com.jzh.mvvm.webView.WebViewActivity
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -70,6 +73,7 @@ class MyCollectActivity : BaseViewModelActivity<MyCollectActivityViewModel>() {
                 }
             }
         }
+        RvAnimUtils.setAnim(mAdapter, SettingUtil.getListAnimal())
     }
 
     private fun removeCollectArticle(id: Int, originId: Int) {

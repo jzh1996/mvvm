@@ -50,11 +50,15 @@
     <string name="share_article_delete">已删除分享的文章</string>
     <string name="audited">待审核</string>
     <string name="submit_ing">正在提交...</string>
+
+
     <string name="share_article_tip" translatable="false">1. 只要是任何好文都可以分享哈，并不一定要是原创！投递的文章会进入广场 tab;
 \n2. CSDN，掘金，简书等官方博客站点会直接通过，不需要审核;
 \n3. 其他个人站点会进入审核阶段，不要投递任何无效链接，测试的请尽快删除，否则可能会对你的账号产生一定影响;
 \n4. 目前处于测试阶段，如果你发现500等错误，可以向我提交日志，让我们一起使网站变得更好。
 \n5. 由于本站只有我一个人开发与维护，会尽力保证24小时内审核，当然有可能哪天太累，会延期，请保持佛系...</string>
+    <string name="copyright_content" translatable="false">本APP所使用的所有API均由玩Android网站提供,仅供学习交流,不可用于任何商业用途。</string>
+
     <string name="account_phone">用户名</string>
     <string name="password">密码</string>
     <string name="login">登录</string>
@@ -76,5 +80,6 @@
     <string name="compulsory">必填</string>
     <string name="non_compulsory">非必填</string>
     <string name="details">内容:</string>
+    <string name="share_article_url">【%1$s】分享[%2$s]:%3$s</string>
 
 </resources>

@@ -61,8 +61,11 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
             }
         })
         LiveEventBus.get("myBadge", Boolean::class.java).observe(this, {
-            if (!SettingUtil.getIsShowBadge()) return@observe
-            if (it) tv_un_todo.visibility = View.VISIBLE
+            if (!SettingUtil.getIsShowBadge()) {
+                tv_un_todo.visibility = View.GONE
+                return@observe
+            }
+            if (it && mmkv.decodeBool(Constant.IS_LOGIN, false)) tv_un_todo.visibility = View.VISIBLE
             else tv_un_todo.visibility = View.GONE
         })
         setImage(File(mmkv.decodeString("HeadPic", "")))
@@ -179,6 +182,7 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
                                         viewModel.logout().observe(this@MyFragment, {
                                             mmkv.encode(Constant.IS_LOGIN, false)
                                             LiveEventBus.get(Constant.IS_LOGIN).post(false)
+                                            LiveEventBus.get("myBadge").post(false)
                                         })
                                     }
                                     R.id.tv_dialog_cancle -> {

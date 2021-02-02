@@ -66,11 +66,18 @@ class SystemActivity : BaseActivity() {
         }
         sc_system_show_banner.run {
             isChecked = SettingUtil.getIsShowBanner()
-            setOnCheckedChangeListener { _, isChecked -> SettingUtil.setIsShowBadge(isChecked) }
+            setOnCheckedChangeListener { _, isChecked -> SettingUtil.setIsShowBanner(isChecked) }
         }
         sc_system_show_badge.run {
             isChecked = SettingUtil.getIsShowBadge()
-            setOnCheckedChangeListener { _, isChecked -> SettingUtil.setIsShowBanner(isChecked) }
+            setOnCheckedChangeListener { _, isChecked ->
+                SettingUtil.setIsShowBadge(isChecked)
+                if (mmkv.decodeBool(Constant.IS_LOGIN, false)) {
+                    LiveEventBus.get("myBadge").post(isChecked)
+                } else LiveEventBus.get("myBadge").post(false)
+                if (!isChecked) LiveEventBus.get("homeBadge").post(0)
+                else LiveEventBus.get("refresh_homeBadge").post(true)
+            }
         }
         rl_app_default_page.run {
             tv_app_default_page.text = SettingUtil.getDefaultPage()

@@ -48,7 +48,11 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
     override fun providerVMClass(): Class<HomeViewModel> = HomeViewModel::class.java
 
     override fun getLayoutId(): Int = R.layout.home_fragment
-    override fun initData() {}
+    override fun initData() {
+        LiveEventBus.get("refresh_homeBadge").observe(this){
+            initArticles(0)
+        }
+    }
 
     private fun initBanner() {
         if (!SettingUtil.getIsShowBanner()) {
@@ -137,8 +141,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
                         homeBadge += 1
                     }
                 }
-                if (homeBadgeOld != homeBadge)
-                    LiveEventBus.get("homeBadge").post(homeBadge)
+                LiveEventBus.get("homeBadge").post(homeBadge)
                 homeBadgeOld = homeBadge
             }
         }
@@ -207,7 +210,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
                         res.collect = !collect
                         setData(position, res)
                         if (collect) viewModel.cancelCollectArticle(res.id).observe(activity!!, {})
-                        else viewModel.addCollectArticle(res.id).observe(activity!!,{})
+                        else viewModel.addCollectArticle(res.id).observe(activity!!, {})
                     }
                 }
             }

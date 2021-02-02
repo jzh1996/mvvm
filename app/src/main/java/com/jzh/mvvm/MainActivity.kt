@@ -42,11 +42,8 @@ import com.jzh.mvvm.receiver.NetworkChangeReceiver
 import com.jzh.mvvm.ui.activity.common.SearchActivity
 import com.jzh.mvvm.ui.activity.group.GroupActivity
 import com.jzh.mvvm.ui.mainFragment.*
+import com.jzh.mvvm.utils.*
 import com.jzh.mvvm.utils.DensityUtil.dip2px
-import com.jzh.mvvm.utils.FileUtils
-import com.jzh.mvvm.utils.PermissionUtils
-import com.jzh.mvvm.utils.SettingUtil
-import com.jzh.mvvm.utils.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.my_fragment.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
@@ -183,7 +180,10 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
             TextBadgeItem().setBorderWidth(1).setText(resources.getString(R.string.zero))
         homeBadge.hide()
         LiveEventBus.get("homeBadge", Int::class.java).observe(this, {
-            if (!SettingUtil.getIsShowBadge()) return@observe
+            if (!SettingUtil.getIsShowBadge()) {
+                homeBadge.hide()
+                return@observe
+            }
             when {
                 it == 0 -> homeBadge.hide()
                 it > 99 -> {
@@ -199,8 +199,11 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
         val myBadge = ShapeBadgeItem().setShape(ShapeBadgeItem.SHAPE_OVAL).setSizeInDp(this, 10, 10)
         myBadge.hide()
         LiveEventBus.get("myBadge", Boolean::class.java).observe(this, {
-            if (!SettingUtil.getIsShowBadge()) return@observe
-            if (!it) myBadge.hide() else myBadge.show()
+            if (!SettingUtil.getIsShowBadge()){
+                myBadge.hide()
+                return@observe
+            }
+            if (it && MyMMKV.mmkv.encode(Constant.IS_LOGIN, true)) myBadge.show() else myBadge.hide()
         })
         // 设置模式
         // MODE_FIXED 未选中item会显示文字 但不会有切换动画

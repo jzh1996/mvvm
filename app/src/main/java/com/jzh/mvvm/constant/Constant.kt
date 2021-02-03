@@ -30,4 +30,6 @@ object Constant {
     const val MY_BG_PIC_PATH = "bgImage"
     const val SCORE_UNM = "score_num"
     const val TOOLBAR_HEIGHT = 44
+    //阅读历史最大存储数
+    const val READ_RECORD_MAX_COUNT = 1000
 }

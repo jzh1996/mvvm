@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import com.jzh.mvvm.R
-
 import kotlinx.android.synthetic.main.layout_alert_dialog.*
 
 
-class MyDialog(mContext: Activity) : Dialog(mContext) {
+class MyDialog(mContext: Activity) : Dialog(mContext, R.style.myDialogTheme) {
 
     init {
         setContentView(R.layout.layout_alert_dialog)
@@ -22,7 +21,7 @@ class MyDialog(mContext: Activity) : Dialog(mContext) {
         p?.height = ViewGroup.LayoutParams.WRAP_CONTENT
         p?.width = (d.width * 0.8).toInt()
         dialogWindow?.attributes = p
-        setCancelable(false)
+        setCancelable(true)
         setCanceledOnTouchOutside(false)
     }
 

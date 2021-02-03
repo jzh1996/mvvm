@@ -29,8 +29,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.activity.SplashActivity"
-            android:theme="@style/BaseAppTheme.Splash"
-            android:screenOrientation="behind">
+            android:screenOrientation="behind"
+            android:theme="@style/BaseAppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,8 +40,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="behind">
-        </activity>
+            android:screenOrientation="behind"/>
         <activity android:name=".ui.activity.common.KnowledgeActivity" />
         <activity android:name=".ui.activity.collect.MyCollectActivity" />
         <activity android:name=".ui.activity.common.SearchActivity" />
@@ -55,8 +54,10 @@
         <activity android:name=".ui.activity.login.RegisterActivity" />
         <activity android:name=".ui.activity.my.MyShareActivity" />
         <activity android:name=".ui.activity.my.MyScoreActivity" />
-        <activity android:name=".ui.activity.my.AboutActivity"/>
+        <activity android:name=".ui.activity.my.AboutActivity" />
         <activity android:name=".ui.activity.my.SystemActivity" />
+        <activity android:name=".ui.activity.my.LaterReadActivity"/>
+        <activity android:name=".ui.activity.my.ReadRecordActivity"/>
     </application>
 
 </manifest>

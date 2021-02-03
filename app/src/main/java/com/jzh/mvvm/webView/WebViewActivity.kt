@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,21 +16,16 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.AgentWebView
 import com.just.agentweb.WebViewClient
 import com.jzh.mvvm.R
-import com.jzh.mvvm.base.BaseActivity
 import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.constant.Constant
-import com.jzh.mvvm.mvvm.viewModel.CommonViewModel
+import com.jzh.mvvm.mvvm.viewModel.RoomViewModel
 import com.jzh.mvvm.ui.activity.login.LoginActivity
-import com.jzh.mvvm.ui.activity.my.MyShareActivity
-import com.jzh.mvvm.utils.MyMMKV
 import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
-import com.jzh.mvvm.utils.SettingUtil
 import com.jzh.mvvm.utils.getAgentWebView
 import com.jzh.mvvm.utils.toast
 import kotlinx.android.synthetic.main.activity_web_view.*
@@ -40,7 +36,7 @@ import kotlinx.android.synthetic.main.view_popupwindow.view.*
  * https://github.com/Justson/AgentWeb
  * Created by jzh on 2020-12-28.
  */
-class WebViewActivity : BaseViewModelActivity<CommonViewModel>() {
+class WebViewActivity : BaseViewModelActivity<RoomViewModel>() {
 
     private var mAgentWeb: AgentWeb? = null
     private lateinit var webView: WebView
@@ -70,7 +66,7 @@ class WebViewActivity : BaseViewModelActivity<CommonViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.activity_web_view
 
-    override fun providerVMClass() = CommonViewModel::class.java
+    override fun providerVMClass() = RoomViewModel::class.java
 
     override fun initData() {}
 
@@ -118,9 +114,27 @@ class WebViewActivity : BaseViewModelActivity<CommonViewModel>() {
         }
     }
 
+    private fun addLater(link: String, title: String) {
+        val mTitle = if (title != "") title else toolbar_title.text.toString()
+        viewModel.addLater(link, mTitle).observe(this) {
+            toast("添加成功")
+        }
+    }
+
+    private fun addRecord(link: String, title: String) {
+        //阅读过的都添加到阅读历史
+        viewModel.addRecord(link, title).observe(this) {
+            //阅读历史超过1000条，就按时间先后顺序把超过的删除了
+            viewModel.removeIfMaxCount().observe(this){}
+        }
+    }
+
     private val mWebChromeClient = object : com.just.agentweb.WebChromeClient() {
         override fun onReceivedTitle(view: WebView, title: String) {
             super.onReceivedTitle(view, title)
+            if (webView.url != null) {
+                addRecord(webView.url!!, title)
+            }
             toolbar_title.text = title
         }
 
@@ -167,6 +181,8 @@ class WebViewActivity : BaseViewModelActivity<CommonViewModel>() {
         popView.tv_pop_all.text = "分享"
         popView.tv_pop_done.text = "收藏"
         popView.tv_pop_todo.text = "浏览器打开"
+        popView.tv_pop_read_later.visibility = View.VISIBLE
+        popView.tv_pop_read_later.text = "稍后阅读"
         popWindow = PopupWindow(
             popView,
             ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -217,6 +233,12 @@ class WebViewActivity : BaseViewModelActivity<CommonViewModel>() {
                     action = "android.intent.action.VIEW"
                     data = Uri.parse(shareUrl)
                     startActivity(this)
+                }
+                popWindow.dismiss()
+            }
+            popView.tv_pop_read_later.setOnClickListener {
+                if (webView.url != null) {
+                    addLater(webView.url!!, webView.title ?: shareTitle)
                 }
                 popWindow.dismiss()
             }

@@ -145,6 +145,44 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_my_laterRead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawablePadding="20dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="@string/my_later_read"
+                            android:textColor="@color/color_black1"
+                            android:textSize="@dimen/sp_14"
+                            app:drawableLeftCompat="@drawable/share"
+                            app:drawableRightCompat="@drawable/right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_my_readRecord"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawablePadding="20dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="@string/my_read_record"
+                            android:textColor="@color/color_black1"
+                            android:textSize="@dimen/sp_14"
+                            app:drawableLeftCompat="@drawable/share"
+                            app:drawableRightCompat="@drawable/right" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/ll_my_system"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

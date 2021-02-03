@@ -52,6 +52,8 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
         iv_todo.setOnClickListener(this)
         ll_my_system.setOnClickListener(this)
         ll_my_about.setOnClickListener(this)
+        ll_my_laterRead.setOnClickListener(this)
+        ll_my_readRecord.setOnClickListener(this)
         LiveEventBus.get(Constant.IS_LOGIN, Boolean::class.java).observe(this, {
             if (it) {
                 startHttp()
@@ -65,8 +67,9 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
                 tv_un_todo.visibility = View.GONE
                 return@observe
             }
-            if (it && mmkv.decodeBool(Constant.IS_LOGIN, false)) tv_un_todo.visibility = View.VISIBLE
-            else tv_un_todo.visibility = View.GONE
+            if (it && mmkv.decodeBool(Constant.IS_LOGIN, false)) {
+                tv_un_todo.visibility = View.VISIBLE
+            } else tv_un_todo.visibility = View.GONE
         })
         setImage(File(mmkv.decodeString("HeadPic", "")))
         if (mmkv.decodeString("bgHeadPic", "") != "")
@@ -110,8 +113,13 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
         viewModel.getTodoList(1, map).observe(this, {
             hideLoading()
             it.datas.let { todoList ->
-                if (todoList.size > 0) LiveEventBus.get("myBadge").post(true)
-                else LiveEventBus.get("myBadge").post(false)
+                if (todoList.size > 0) {
+                    tv_un_todo.visibility = View.VISIBLE
+                    LiveEventBus.get("myBadge").post(true)
+                } else {
+                    tv_un_todo.visibility = View.GONE
+                    LiveEventBus.get("myBadge").post(false)
+                }
             }
         })
     }
@@ -129,13 +137,7 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
     }
 
     private fun setBgImage(file: File?) {
-        //因为头像是用的同一路径，Glide会缓存同一地址的图片不更新，所以这里禁止缓存
-        Glide.with(this).load(file)
-            .skipMemoryCache(true)//跳过内存缓存
-            .diskCacheStrategy(DiskCacheStrategy.NONE)//不要在disk硬盘缓存
-            .placeholder(R.drawable.bg_placeholder).dontAnimate()
-            .error(R.drawable.bg_placeholder)
-            .into(iv_bg_img)
+        ImageLoader.loadByNoCache(context, file, iv_bg_img)
     }
 
     override fun providerVMClass(): Class<MyViewModel> = MyViewModel::class.java
@@ -207,6 +209,8 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
             }
             ll_my_system -> startActivity(Intent(activity, SystemActivity::class.java))
             ll_my_about -> startActivity(Intent(activity, AboutActivity::class.java))
+            ll_my_laterRead -> startActivity(Intent(activity, LaterReadActivity::class.java))
+            ll_my_readRecord -> startActivity(Intent(activity, ReadRecordActivity::class.java))
         }
     }
 

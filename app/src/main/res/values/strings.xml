@@ -25,6 +25,8 @@
     <string name="my_score">我的积分</string>
     <string name="my_share">我的分享</string>
     <string name="my_system">系统设置</string>
+    <string name="my_later_read">稍后阅读</string>
+    <string name="my_read_record">阅读历史</string>
     <string name="my_about">关于我们</string>
     <string name="my_logout">退出登录</string>
     <string name="first_title">一级标题</string>

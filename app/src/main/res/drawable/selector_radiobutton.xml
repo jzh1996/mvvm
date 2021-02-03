@@ -15,7 +15,7 @@
         <!--如果是未选中,那么我们使用shape画一个-->
         <shape>
             <!--设置描边形式,并且设置圆角-->
-            <solid android:color="@color/color_gray5" />
+            <solid android:color="@color/Grey" />
             <stroke android:width="0.5dp" android:color="@color/white" />
             <corners android:radius="0dp" />
         </shape>

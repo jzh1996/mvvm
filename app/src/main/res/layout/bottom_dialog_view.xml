@@ -14,36 +14,36 @@
         android:padding="15dp"
         android:text="@string/take_photo"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="@dimen/sp_16" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_gray7" />
+
     <TextView
         android:id="@+id/tv_from_album"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="15dp"
         android:gravity="center"
-        android:text="@string/from_album"/>
+        android:padding="15dp"
+        android:text="@string/from_album"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/sp_16" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@color/color_gray7" />
+
     <TextView
         android:id="@+id/tv_cancle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="15dp"
         android:gravity="center"
-        android:text="@string/cancel"/>
+        android:padding="15dp"
+        android:text="@string/cancel"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/sp_16" />
 
 </LinearLayout>

@@ -5,7 +5,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.constant.Constant

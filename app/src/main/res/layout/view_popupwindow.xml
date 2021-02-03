@@ -56,4 +56,23 @@
         android:textColor="@color/black"
         android:textSize="@dimen/sp_16" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_01"
+        android:background="@color/item_hen" />
+
+    <TextView
+        android:id="@+id/tv_pop_read_later"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="18dp"
+        android:paddingTop="12dp"
+        android:paddingRight="18dp"
+        android:paddingBottom="12dp"
+        android:text="稍后阅读"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_16"
+        android:visibility="gone"/>
+
 </LinearLayout>

@@ -159,7 +159,7 @@
                             android:text="@string/my_later_read"
                             android:textColor="@color/color_black1"
                             android:textSize="@dimen/sp_14"
-                            app:drawableLeftCompat="@drawable/share"
+                            app:drawableLeftCompat="@drawable/later_read"
                             app:drawableRightCompat="@drawable/right" />
                     </LinearLayout>
 
@@ -178,7 +178,7 @@
                             android:text="@string/my_read_record"
                             android:textColor="@color/color_black1"
                             android:textSize="@dimen/sp_14"
-                            app:drawableLeftCompat="@drawable/share"
+                            app:drawableLeftCompat="@drawable/read_record"
                             app:drawableRightCompat="@drawable/right" />
                     </LinearLayout>
 

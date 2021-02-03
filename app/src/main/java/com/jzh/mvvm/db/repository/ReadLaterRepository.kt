@@ -1,6 +1,5 @@
 package com.jzh.mvvm.db.repository
 
-import androidx.lifecycle.LiveData
 import com.jzh.mvvm.db.WanDb.db
 import com.jzh.mvvm.db.model.ReadLaterModel
 

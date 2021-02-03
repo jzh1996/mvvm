@@ -18,7 +18,7 @@ open class BaseDBRepository : CoroutineScope by MainScope() {
             success?.invoke(result)
         }.invokeOnCompletion {
             if (it != null) {
-                Toast.makeText(BaseApplication.mContext, it?.message ?: "", Toast.LENGTH_SHORT)
+                Toast.makeText(BaseApplication.mContext, it.message ?: "本地数据库异常", Toast.LENGTH_SHORT)
                     .show()
             }
             //需要自行处理error的话可以传入error参数

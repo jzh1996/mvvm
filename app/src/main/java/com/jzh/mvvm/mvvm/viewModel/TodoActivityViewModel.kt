@@ -1,7 +1,6 @@
 package com.jzh.mvvm.mvvm.viewModel
 
 import androidx.lifecycle.LiveData
-import com.jzh.mvvm.httpUtils.TodoResponseBody
 import com.jzh.mvvm.mvvm.repository.TodoRepository
 import com.jzh.mvvm.utils.SingleLiveEvent
 

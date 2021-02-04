@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.jzh.mvvm.utils.toast
+import kotlinx.coroutines.TimeoutCancellationException
 import retrofit2.HttpException
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -51,6 +52,8 @@ abstract class BaseViewModelActivity<VM : BaseViewModel> : BaseActivity() {
         it?.run {
             when (it) {
                 is CancellationException -> Log.d("${TAG}--->接口请求取消", it.message.toString())
+                is TimeoutCancellationException -> toast("请求超时")
+                is BaseRepository.TokenInvalidException -> toast("登陆超时")
                 is HttpException -> {
                     if (it.code() == 504) toast("无法连接服务器,请检查网络设置")
                     else toast(it.message.toString())

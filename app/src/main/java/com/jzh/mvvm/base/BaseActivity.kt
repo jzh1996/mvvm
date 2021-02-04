@@ -2,8 +2,6 @@ package com.jzh.mvvm.base
 
 import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
@@ -93,7 +91,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open fun isSearchLoading() = toolbar_loading_search?.visibility == View.VISIBLE
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         //防止输入法顶起底部布局
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
@@ -102,6 +99,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (mmkv.decodeInt("max_size") == 0) {
             mmkv.encode("max_size", resources.displayMetrics.heightPixels)
         }
+        //设置状态栏透明
         setWindowStatusTransparent(this)
         if (getLayoutId() > 0) setContentView(getLayoutId())
         initData()
@@ -191,5 +189,6 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         hideLoading()
+        hideSearchLoading()
     }
 }

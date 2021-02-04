@@ -2,7 +2,6 @@ package com.jzh.mvvm.mvvm.repository
 
 import com.jzh.mvvm.httpUtils.ResponseData
 import com.jzh.mvvm.httpUtils.RetrofitClient
-import com.jzh.mvvm.httpUtils.TodoResponseBody
 
 class TodoRepository : CommonRepository() {
 

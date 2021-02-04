@@ -220,4 +220,9 @@ class TodoActivity : BaseViewModelActivity<TodoActivityViewModel>() {
             startHttp()
         }
     }
+
+    override fun requestError(it: Exception?) {
+        super.requestError(it)
+        mAdapter.loadMoreModule.loadMoreFail()
+    }
 }

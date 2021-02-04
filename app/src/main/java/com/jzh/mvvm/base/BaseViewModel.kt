@@ -1,6 +1,5 @@
 package com.jzh.mvvm.base
 
-import android.util.Log
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.jzh.mvvm.constant.HttpConstant
 import com.jzh.mvvm.utils.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
-import retrofit2.HttpException
 
 open class BaseViewModel : ViewModel(), LifecycleObserver {
 
@@ -29,7 +26,6 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
             //此处接收到BaseRepository里的request抛出的异常，直接赋值给error
             error.value = e
         } finally {
-            Log.d("BaseViewModel", "接口请求---------->完成")
             finally.value = 200
         }
     }

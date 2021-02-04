@@ -2,10 +2,6 @@ package com.jzh.mvvm.mvvm.viewModel
 
 import androidx.lifecycle.LiveData
 import com.jzh.mvvm.base.BaseViewModel
-import com.jzh.mvvm.db.model.ReadLaterModel
-import com.jzh.mvvm.db.model.ReadRecordModel
-import com.jzh.mvvm.db.repository.ReadLaterRepository
-import com.jzh.mvvm.db.repository.ReadRecordRepository
 import com.jzh.mvvm.httpUtils.LoginData
 import com.jzh.mvvm.httpUtils.TodoResponseBody
 import com.jzh.mvvm.mvvm.repository.CommonRepository

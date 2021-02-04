@@ -125,15 +125,7 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
     }
 
     private fun setImage(file: File?) {
-        if (this.isAdded) {
-            //因为头像是用的同一路径，Glide会缓存同一地址的图片不更新，所以这里禁止缓存
-            Glide.with(this).load(file)
-                .skipMemoryCache(true)//跳过内存缓存
-                .diskCacheStrategy(DiskCacheStrategy.NONE)//不要在disk硬盘缓存
-                .placeholder(R.drawable.icon_profile).dontAnimate()
-                .error(R.drawable.icon_profile)
-                .into(head_pic)
-        }
+        ImageLoader.loadByNoCache(context, file, head_pic)
     }
 
     private fun setBgImage(file: File?) {

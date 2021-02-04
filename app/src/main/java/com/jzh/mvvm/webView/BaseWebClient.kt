@@ -20,7 +20,7 @@ import com.jzh.mvvm.base.BaseApplication
  */
 open class BaseWebClient : com.just.agentweb.WebViewClient() {
 
-    protected val TAG = "BaseWebClient"
+    private val TAG = "BaseWebClient"
 
     // 拦截的网址
     private val blackHostList = arrayListOf(

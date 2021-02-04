@@ -1,17 +1,11 @@
 package com.jzh.mvvm
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.provider.Settings
 import android.util.TypedValue
 import android.view.Gravity
@@ -24,7 +18,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.fragment.app.Fragment
@@ -34,7 +27,6 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.ashokvarma.bottomnavigation.ShapeBadgeItem
 import com.ashokvarma.bottomnavigation.TextBadgeItem
-import com.bumptech.glide.Glide
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.base.BaseActivity
 import com.jzh.mvvm.constant.Constant
@@ -48,8 +40,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.my_fragment.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.IOException
 
 
 /**
@@ -256,8 +246,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
                     position: Int,
                     positionOffset: Float,
                     positionOffsetPixels: Int
-                ) {
-                }
+                ) {}
 
                 override fun onPageSelected(position: Int) {
                     pos = position

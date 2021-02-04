@@ -9,7 +9,7 @@ import com.jzh.mvvm.db.model.ReadRecordModel
 @Dao
 interface ReadRecordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg mode: ReadRecordModel)
+    suspend fun insert(mode: ReadRecordModel): Long
 
     @Query("DELETE FROM ReadRecordModel WHERE link = :link")
     suspend fun delete(link: String): Int

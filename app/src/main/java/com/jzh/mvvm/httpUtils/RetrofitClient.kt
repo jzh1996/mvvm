@@ -1,7 +1,6 @@
 package com.jzh.mvvm.httpUtils
 
 import android.util.Log
-import androidx.multidex.BuildConfig
 import com.jzh.mvvm.base.BaseApplication
 import com.jzh.mvvm.constant.HttpConstant
 import com.jzh.mvvm.httpUtils.interceptor.CacheInterceptor

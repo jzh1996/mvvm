@@ -15,7 +15,6 @@ import com.jzh.mvvm.ui.adapter.KnowledgeListAdapter
 import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
 import com.jzh.mvvm.utils.RvAnimUtils
 import com.jzh.mvvm.utils.SettingUtil
-import com.jzh.mvvm.utils.toast
 import com.jzh.mvvm.webView.WebViewActivity
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.know_list_fragment.*

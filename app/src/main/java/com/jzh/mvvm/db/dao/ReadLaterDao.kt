@@ -10,7 +10,7 @@ import com.jzh.mvvm.db.model.ReadLaterModel
 interface ReadLaterDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg model: ReadLaterModel)
+    suspend fun insert(model: ReadLaterModel): Long
 
     @Query("SELECT * FROM ReadLaterModel ORDER BY time DESC LIMIT (:offset),(:count)")
     suspend fun findAll(offset: Int, count: Int): List<ReadLaterModel>

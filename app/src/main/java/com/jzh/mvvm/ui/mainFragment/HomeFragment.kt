@@ -49,7 +49,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.home_fragment
     override fun initData() {
-        LiveEventBus.get("refresh_homeBadge").observe(this){
+        LiveEventBus.get("refresh_homeBadge").observe(this) {
             initArticles(0)
         }
     }
@@ -74,42 +74,26 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
 
     private fun initArticles(page: Int) {
         if (SettingUtil.getIsShowTopArticle() && isRefresh) {
-            var topList = mutableListOf<Article>()
-            viewModel.getTopArticles().observe(activity!!, {
-                it.forEach {
-                    it.top = "1"
-                }
-                topList.clear()
-                topList.addAll(0, it)
-                homeAdapter.run {
-                    setList(topList)
-                }
-            })
-            viewModel.getArticles(page).observe(activity!!, {
-                it.datas.let { Article ->
+            viewModel.getArticlesAndTopArticles(page).observe(this) {
+                it.let { Article ->
                     homeAdapter.run {
                         hideLoading()
                         if (isRefresh) {
                             refreshLayout.finishRefresh()
-                            topList.addAll(Article)
-                            setList(topList)
+                            setList(Article)
                             recyclerView.scrollToPosition(0)
-                        } else {
-                            topList.clear()
-                            topList.addAll(Article)
-                            addData(topList)
-                        }
+                        } else addData(Article)
                         initBadge("home", Article)
                         if (data.size == 0) setEmptyView(R.layout.fragment_empty_layout)
                         else if (hasEmptyView()) removeEmptyView()
-                        if (it.over) loadMoreModule.loadMoreEnd(isRefresh)
+                        if (it.size < pageSize) loadMoreModule.loadMoreEnd(isRefresh)
                         else loadMoreModule.loadMoreComplete()
                     }
                 }
-            })
+            }
         } else {
             viewModel.getArticles(page).observe(activity!!, {
-                it.datas.let { Article ->
+                it.let { Article ->
                     homeAdapter.run {
                         if (isRefresh) {
                             refreshLayout.finishRefresh()
@@ -119,7 +103,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
                         initBadge("home", Article)
                         if (data.size == 0) setEmptyView(R.layout.fragment_empty_layout)
                         else if (hasEmptyView()) removeEmptyView()
-                        if (it.over) loadMoreModule.loadMoreEnd(isRefresh)
+                        if (it.size < pageSize) loadMoreModule.loadMoreEnd(isRefresh)
                         else loadMoreModule.loadMoreComplete()
                     }
                 }
@@ -235,8 +219,8 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
     override fun startHttp() {
         showLoading()
         isRefresh = true
-        initBanner()
         initArticles(0)
+        initBanner()
     }
 
     override fun requestError(it: Exception?) {

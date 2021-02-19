@@ -20,16 +20,30 @@
             android:background="@color/colorPrimaryDark"
             android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/tv_score"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:lines="1"
-            android:textColor="@color/white"
-            android:textSize="80sp"
-            tools:text="100" />
+            android:layout_height="match_parent">
+
+            <com.jzh.mvvm.ui.view.WaveView
+                android:id="@+id/wave_score"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:WaveBorder="@dimen/dp_1"
+                app:WaveColor="@color/colorPrimary"
+                app:WaveHeight="0.9"
+                app:WaveShapeType="SQUARE" />
+
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:lines="1"
+                android:textColor="@color/white"
+                android:textSize="80sp"
+                tools:text="100" />
+        </FrameLayout>
 
     </RelativeLayout>
 

@@ -2,6 +2,7 @@ package com.jzh.mvvm.utils
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
@@ -44,5 +45,44 @@ object DensityUtil {
 //        } else {
 //            metrics.widthPixels < BaseApplication.mContext.resources.displayMetrics.widthPixels || metrics.heightPixels < BaseApplication.mContext.resources.displayMetrics.heightPixels
 //        }
+    }
+
+    /**
+     * 修改颜色透明度
+     *
+     * @param color
+     * @param alpha
+     * @return
+     */
+    fun changeColorAlpha(color: Int, alpha: Int): Int {
+        val red = Color.red(color)
+        val green = Color.green(color)
+        val blue = Color.blue(color)
+        return Color.argb(alpha, red, green, blue)
+    }
+
+    fun getAlphaPercent(argb: Int): Float {
+        return Color.alpha(argb) / 255f
+    }
+
+    fun alphaValueAsInt(alpha: Float): Int {
+        return Math.round(alpha * 255)
+    }
+
+    fun adjustAlpha(alpha: Float, color: Int): Int {
+        return alphaValueAsInt(alpha) shl 24 or (0x00ffffff and color)
+    }
+
+    fun colorAtLightness(color: Int, lightness: Float): Int {
+        val hsv = FloatArray(3)
+        Color.colorToHSV(color, hsv)
+        hsv[2] = lightness
+        return Color.HSVToColor(hsv)
+    }
+
+    fun lightnessOfColor(color: Int): Float {
+        val hsv = FloatArray(3)
+        Color.colorToHSV(color, hsv)
+        return hsv[2]
     }
 }

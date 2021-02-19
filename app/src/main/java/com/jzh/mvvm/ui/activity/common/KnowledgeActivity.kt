@@ -38,7 +38,7 @@ class KnowledgeActivity : BaseActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun initView() {
-        setTop(title, R.drawable.points)
+        setTop(title)
         vp2 = vp2_know
         vp2.run {
             adapter = viewPagerAdapter

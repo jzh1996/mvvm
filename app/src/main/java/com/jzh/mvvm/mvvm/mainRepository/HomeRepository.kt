@@ -13,7 +13,7 @@ class HomeRepository : CommonRepository() {
         RetrofitClient.service.getArticles(page)
     }
 
-    suspend fun getTopArticles(): ResponseData<List<Article>> = request {
+    suspend fun getTopArticles(): ResponseData<MutableList<Article>> = request {
         RetrofitClient.service.getTopArticles()
     }
 

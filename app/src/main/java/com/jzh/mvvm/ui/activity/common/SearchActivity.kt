@@ -146,9 +146,9 @@ class SearchActivity : BaseViewModelActivity<HomeViewModel>() {
                 homeAdapter.run {
                     if (isRefresh) {
                         refreshLayout.finishRefresh()
-                        setList(it.datas)
+                        setList(Article)
                         recyclerView.scrollToPosition(0)
-                    } else addData(it.datas)
+                    } else addData(Article)
                     if (data.size == 0) setEmptyView(R.layout.fragment_empty_layout)
                     else if (hasEmptyView()) removeEmptyView()
                     if (it.over || data.size < pageSize) loadMoreModule.loadMoreEnd(isRefresh)

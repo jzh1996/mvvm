@@ -7,4 +7,14 @@
     <attr name="textColorPrimary" format="color" />
     <attr name="viewBackground" format="color" />
 
+    <declare-styleable name="WaveView">
+        <attr name="WaveColor" format="color" />
+        <attr name="WaveBorder" format="dimension" />
+        <attr name="WaveHeight" format="float" />
+        <attr name="WaveShapeType">
+            <enum name="CIRCLE" value="0" />
+            <enum name="SQUARE" value="1" />
+        </attr>
+    </declare-styleable>
+
 </resources>

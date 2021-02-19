@@ -1,6 +1,8 @@
 package com.jzh.mvvm.ui.activity.my
 
 import android.os.Build
+import android.view.MotionEvent
+import android.view.animation.TranslateAnimation
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +39,7 @@ class RankActivity : BaseViewModelActivity<MyScoreActivityViewModel>() {
         }
     }
 
-    override fun initView() {
+    override fun initView() {  //
         refreshLayout = swipeRefreshLayout1_integral
         refreshLayout.run {
             setRefreshHeader(ch_header_integral)

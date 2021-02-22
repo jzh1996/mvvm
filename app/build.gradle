@@ -71,7 +71,7 @@ dependencies {
     //retrofit + okHttp3
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'//之前的版本android11打开会闪退，使用最新版(https://juejin.cn/post/6922649360962420743)
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.1.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
     //腾讯bugly
     implementation 'com.tencent.bugly:crashreport:3.2.3'
     //dex分包,解决方法数超限(65535)

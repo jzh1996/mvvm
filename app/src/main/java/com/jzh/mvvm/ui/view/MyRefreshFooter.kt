@@ -2,6 +2,7 @@ package com.jzh.mvvm.ui.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.MotionEvent
 import androidx.core.content.ContextCompat
 import com.jzh.mvvm.R
 import com.scwang.smart.refresh.footer.ClassicsFooter
@@ -18,5 +19,10 @@ class MyRefreshFooter(context: Context, attrs: AttributeSet? = null) :
         setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
         setPrimaryColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
         setAccentColor(ContextCompat.getColor(context, R.color.white))
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        parent.requestDisallowInterceptTouchEvent(true)
+        return super.dispatchTouchEvent(ev)
     }
 }

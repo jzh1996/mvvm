@@ -3,7 +3,7 @@
 **开源不易，如果喜欢的话希望给个 `Star` 或 `Fork` ^_^ ，谢谢~~**
 
 ## 前言
-工作上一直都是以H5混合开发为主，`Android`原生代码很少用到。前段时间复习了下`kotlin`，顺便学习了下`JetPack`全家桶，就写了个项目熟悉下。希望能对想了解JetPack和kotlin的小伙伴有一点帮助!
+希望能对想了解JetPack和kotlin的小伙伴有一点帮助!
 
 ## 简介
 [MvvM](https://github.com/jzh1996/mvvm) 采用 `Kotlin` 语言编写，结合 `MVVM` + `协程` + `Retrofit` + `Glide` + `JetPack`部分功能 等架构设计的项目，项目代码结构清晰，如有任何疑问和建议请提 [Issues](https://github.com/jzh1996/mvvm/issues) 或联系 qq： **1510931535** ，项目会持续迭代维护。
@@ -19,6 +19,10 @@
 - 点击[![](https://img.shields.io/badge/Download-apk-green.svg)](https://raw.githubusercontent.com/jzh1996/mvvm/main/app-demo.apk) [下载](https://github.com/jzh1996/mvvm/blob/main/app-demo.apk)
 
 ## 主要功能
+
+# 1.1.3
+- 新增viewBinding示例页面
+- 使用协程的同步机制优化首页加载置顶文章的逻辑
 
 # 1.1.2
 - 优化首页加载置顶文章的逻辑

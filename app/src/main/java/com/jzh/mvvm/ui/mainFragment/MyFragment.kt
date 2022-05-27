@@ -7,8 +7,6 @@ import android.graphics.BitmapFactory
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelFragment
@@ -21,6 +19,7 @@ import com.jzh.mvvm.ui.view.BottomDialog
 import com.jzh.mvvm.ui.view.MyDialog
 import com.jzh.mvvm.utils.*
 import com.jzh.mvvm.utils.MyMMKV.Companion.mmkv
+import com.jzh.mvvm.viewBinding.ViewBindingActivity
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.my_fragment.*
 import java.io.File
@@ -54,15 +53,16 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
         ll_my_about.setOnClickListener(this)
         ll_my_laterRead.setOnClickListener(this)
         ll_my_readRecord.setOnClickListener(this)
-        LiveEventBus.get(Constant.IS_LOGIN, Boolean::class.java).observe(this, {
+        ll_view_binding.setOnClickListener(this)
+        LiveEventBus.get(Constant.IS_LOGIN, Boolean::class.java).observe(this) {
             if (it) {
                 startHttp()
             } else {
                 tv_name.text = resources.getString(R.string.my_login)
                 my_rank_num.text = resources.getString(R.string.my_score)
             }
-        })
-        LiveEventBus.get("myBadge", Boolean::class.java).observe(this, {
+        }
+        LiveEventBus.get("myBadge", Boolean::class.java).observe(this) {
             if (!SettingUtil.getIsShowBadge()) {
                 tv_un_todo.visibility = View.GONE
                 return@observe
@@ -70,7 +70,7 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
             if (it && mmkv.decodeBool(Constant.IS_LOGIN, false)) {
                 tv_un_todo.visibility = View.VISIBLE
             } else tv_un_todo.visibility = View.GONE
-        })
+        }
         setImage(File(mmkv.decodeString("HeadPic", "")))
         if (mmkv.decodeString("bgHeadPic", "") != "")
             setBgImage(File(mmkv.decodeString("bgHeadPic", "")))
@@ -92,14 +92,14 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
                 mmkv.decodeString(Constant.USERNAME_KEY, resources.getString(R.string.my_login))
             my_rank_num.text =
                 "${resources.getString(R.string.my_score)}(${mmkv.decodeString(Constant.USERNAME_COIN_COUNT)})"
-            viewModel.getUserInfo().observe(this, {
+            viewModel.getUserInfo().observe(this) {
                 refreshLayout.finishRefresh()
                 tv_name.text = it.username
                 my_rank_num.text = "${resources.getString(R.string.my_score)}(${it.coinCount})"
                 mmkv.encode(Constant.USERNAME_COIN_COUNT, it.coinCount.toString())
                 mmkv.encode(Constant.USERNAME_KEY, it.username)
                 mmkv.encode(Constant.SCORE_UNM, it.coinCount)
-            })
+            }
         } else {
             if (refreshLayout.isRefreshing) refreshLayout.finishRefresh()
             tv_name.text = resources.getString(R.string.my_login)
@@ -110,7 +110,7 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
     private fun getTodoBadge() {
         val map = mutableMapOf<String, Any>()
         map["status"] = 0
-        viewModel.getTodoList(1, map).observe(this, {
+        viewModel.getTodoList(1, map).observe(this) {
             hideLoading()
             it.datas.let { todoList ->
                 if (todoList.size > 0) {
@@ -121,7 +121,7 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
                     LiveEventBus.get("myBadge").post(false)
                 }
             }
-        })
+        }
     }
 
     private fun setImage(file: File?) {
@@ -173,11 +173,11 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
                                 when (v.id) {
                                     R.id.tv_dialog_sure -> {
                                         if (logoutDialog.isShowing) logoutDialog.dismiss()
-                                        viewModel.logout().observe(this@MyFragment, {
+                                        viewModel.logout().observe(this@MyFragment) {
                                             mmkv.encode(Constant.IS_LOGIN, false)
                                             LiveEventBus.get(Constant.IS_LOGIN).post(false)
                                             LiveEventBus.get("myBadge").post(false)
-                                        })
+                                        }
                                     }
                                     R.id.tv_dialog_cancle -> {
                                         if (logoutDialog.isShowing) logoutDialog.dismiss()
@@ -203,6 +203,7 @@ class MyFragment : BaseViewModelFragment<MyViewModel>(), View.OnClickListener {
             ll_my_about -> startActivity(Intent(activity, AboutActivity::class.java))
             ll_my_laterRead -> startActivity(Intent(activity, LaterReadActivity::class.java))
             ll_my_readRecord -> startActivity(Intent(activity, ReadRecordActivity::class.java))
+            ll_view_binding -> startActivity(Intent(activity, ViewBindingActivity::class.java))
         }
     }
 

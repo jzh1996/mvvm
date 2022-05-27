@@ -62,15 +62,15 @@ class MyScoreActivity : BaseViewModelActivity<MyScoreActivityViewModel>() {
     }
 
     private fun getUserInfo() {
-        viewModel.getUserInfo().observe(this, {
+        viewModel.getUserInfo().observe(this) {
             mmkv.encode(Constant.SCORE_UNM, it.coinCount)
             AnimatorUtils.doIntAnimator(tv_score, 0, it.coinCount, 1000)
-        })
+        }
     }
 
     private fun getScoreList(page: Int) {
         //该接口page从1开始
-        viewModel.getScoreList(page + 1).observe(this, {
+        viewModel.getScoreList(page + 1).observe(this) {
             hideLoading()
             it.datas.let { scoreList ->
                 mAdapter.run {
@@ -80,7 +80,7 @@ class MyScoreActivity : BaseViewModelActivity<MyScoreActivityViewModel>() {
                     else loadMoreModule.loadMoreComplete()
                 }
             }
-        })
+        }
     }
 
     override fun requestError(it: Exception?) {

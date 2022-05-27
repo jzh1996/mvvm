@@ -128,7 +128,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         var hasPermissionDismiss = false
         if (requestCode == REQ_CODE_INIT_API_KEY) {
@@ -169,7 +169,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
         val homeBadge =
             TextBadgeItem().setBorderWidth(1).setText(resources.getString(R.string.zero))
         homeBadge.hide()
-        LiveEventBus.get("homeBadge", Int::class.java).observe(this, {
+        LiveEventBus.get("homeBadge", Int::class.java).observe(this) {
             if (!SettingUtil.getIsShowBadge()) {
                 homeBadge.hide()
                 return@observe
@@ -185,16 +185,18 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
                     homeBadge.setText(it.toString())
                 }
             }
-        })
+        }
         val myBadge = ShapeBadgeItem().setShape(ShapeBadgeItem.SHAPE_OVAL).setSizeInDp(this, 10, 10)
         myBadge.hide()
-        LiveEventBus.get("myBadge", Boolean::class.java).observe(this, {
-            if (!SettingUtil.getIsShowBadge()){
+        LiveEventBus.get("myBadge", Boolean::class.java).observe(this) {
+            if (!SettingUtil.getIsShowBadge()) {
                 myBadge.hide()
                 return@observe
             }
-            if (it && MyMMKV.mmkv.encode(Constant.IS_LOGIN, true)) myBadge.show() else myBadge.hide()
-        })
+            if (it && MyMMKV.mmkv.encode(Constant.IS_LOGIN,
+                    true)
+            ) myBadge.show() else myBadge.hide()
+        }
         // 设置模式
         // MODE_FIXED 未选中item会显示文字 但不会有切换动画
         // MODE_SHIFTING 未选中的Item不会显示文字，选中的会显示文字 切换时会有动画
@@ -245,8 +247,9 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
                 override fun onPageScrolled(
                     position: Int,
                     positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {}
+                    positionOffsetPixels: Int,
+                ) {
+                }
 
                 override fun onPageSelected(position: Int) {
                     pos = position
@@ -322,7 +325,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
         bottomNavigationBar: BottomNavigationBar,
         space: Int,
         imgLen: Int,
-        textSize: Int
+        textSize: Int,
     ) {
         val barClass: Class<*> = bottomNavigationBar.javaClass
         val fields = barClass.declaredFields

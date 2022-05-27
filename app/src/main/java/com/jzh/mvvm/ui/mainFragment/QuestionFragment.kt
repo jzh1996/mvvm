@@ -81,9 +81,9 @@ class QuestionFragment : BaseViewModelFragment<QuestionViewModel>() {
             }
         }
         RvAnimUtils.setAnim(questionAdapter, SettingUtil.getListAnimal())
-        LiveEventBus.get("rv_anim").observe(this, {
+        LiveEventBus.get("rv_anim").observe(this) {
             RvAnimUtils.setAnim(questionAdapter, it)
-        })
+        }
     }
 
     override fun startHttp() {
@@ -93,7 +93,7 @@ class QuestionFragment : BaseViewModelFragment<QuestionViewModel>() {
     }
 
     private fun getQuestionList(page: Int) {
-        viewModel.getQuestionList(page).observe(activity!!, {
+        viewModel.getQuestionList(page).observe(activity!!) {
             it.datas.let { article ->
                 hideLoading()
                 questionAdapter.run {
@@ -108,7 +108,7 @@ class QuestionFragment : BaseViewModelFragment<QuestionViewModel>() {
                     else loadMoreModule.loadMoreComplete()
                 }
             }
-        })
+        }
     }
 
     override fun requestError(it: Exception?) {

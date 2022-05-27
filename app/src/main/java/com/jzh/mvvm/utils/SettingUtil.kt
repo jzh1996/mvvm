@@ -2,7 +2,8 @@ package com.jzh.mvvm.utils
 
 import android.app.Activity
 import com.jzh.mvvm.R
-import com.jzh.mvvm.base.BaseApplication
+import com.jzh.mvvm.base.BaseApplication.Companion.mContext
+
 import com.tencent.mmkv.MMKV
 
 object SettingUtil {
@@ -37,7 +38,7 @@ object SettingUtil {
      * 获取进入APP默认展示的页面
      */
     fun getDefaultPage(): String = setting.decodeString(
-        "default_page", BaseApplication.mContext.resources.getString(
+        "default_page", mContext.resources.getString(
             R.string.home
         )
     )

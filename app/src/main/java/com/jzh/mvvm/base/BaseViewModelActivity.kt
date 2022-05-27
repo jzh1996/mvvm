@@ -32,14 +32,14 @@ abstract class BaseViewModelActivity<VM : BaseViewModel> : BaseActivity() {
     private fun startObserve() {
         //处理一些通用异常，比如网络超时等
         viewModel.run {
-            getError().observe(this@BaseViewModelActivity, {
+            getError().observe(this@BaseViewModelActivity) {
                 hideLoading()
                 hideSearchLoading()
                 requestError(it)
-            })
-            getFinally().observe(this@BaseViewModelActivity, {
+            }
+            getFinally().observe(this@BaseViewModelActivity) {
                 requestFinally(it)
-            })
+            }
         }
     }
 

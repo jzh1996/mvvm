@@ -101,7 +101,7 @@ class GroupActivity : BaseViewModelActivity<GroupActivityViewModel>() {
     }
 
     private fun getGroupList(page: Int) {
-        viewModel.getGroupList(page).observe(this, {
+        viewModel.getGroupList(page).observe(this) {
             it.datas.let { article ->
                 hideLoading()
                 mAdapter.run {
@@ -115,7 +115,7 @@ class GroupActivity : BaseViewModelActivity<GroupActivityViewModel>() {
                     else loadMoreModule.loadMoreComplete()
                 }
             }
-        })
+        }
     }
 
     override fun requestError(it: Exception?) {

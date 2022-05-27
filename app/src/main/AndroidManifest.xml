@@ -28,6 +28,9 @@
         android:theme="@style/BaseAppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".viewBinding.ViewBindingActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.SplashActivity"
             android:screenOrientation="behind"
             android:theme="@style/BaseAppTheme.Splash">
@@ -40,7 +43,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="behind"/>
+            android:screenOrientation="behind" />
         <activity android:name=".ui.activity.common.KnowledgeActivity" />
         <activity android:name=".ui.activity.collect.MyCollectActivity" />
         <activity android:name=".ui.activity.common.SearchActivity" />
@@ -56,8 +59,8 @@
         <activity android:name=".ui.activity.my.MyScoreActivity" />
         <activity android:name=".ui.activity.my.AboutActivity" />
         <activity android:name=".ui.activity.my.SystemActivity" />
-        <activity android:name=".ui.activity.my.LaterReadActivity"/>
-        <activity android:name=".ui.activity.my.ReadRecordActivity"/>
+        <activity android:name=".ui.activity.my.LaterReadActivity" />
+        <activity android:name=".ui.activity.my.ReadRecordActivity" />
     </application>
 
 </manifest>

@@ -15,7 +15,7 @@ import java.util.regex.Pattern
  */
 class JianShuWebClient : BaseWebClient() {
 
-    private val rex = "(<style data-vue-ssr-id=[\\s\\S]*?>)([\\s\\S]*]?)(<\\/style>)"
+    private val rex = "(<style todoData-vue-ssr-id=[\\s\\S]*?>)([\\s\\S]*]?)(<\\/style>)"
 
     private val bodyRex = "<body class=\"([\\ss\\S]*?)\""
 

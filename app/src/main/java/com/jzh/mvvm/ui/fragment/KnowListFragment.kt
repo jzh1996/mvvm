@@ -90,13 +90,13 @@ class KnowListFragment : BaseViewModelFragment<KnowListViewModel>() {
             }
         }
         RvAnimUtils.setAnim(knowledgeListAdapter, SettingUtil.getListAnimal())
-        LiveEventBus.get("rv_anim").observe(this, {
+        LiveEventBus.get("rv_anim").observe(this) {
             RvAnimUtils.setAnim(knowledgeListAdapter, it)
-        })
+        }
     }
 
     private fun initKnowledgeList(page: Int) {
-        viewModel.getKnowledgeList(page, cid).observe(activity!!, {
+        viewModel.getKnowledgeList(page, cid).observe(activity!!) {
             it.datas.let { Article ->
                 hideLoading()
                 knowledgeListAdapter.run {
@@ -111,7 +111,7 @@ class KnowListFragment : BaseViewModelFragment<KnowListViewModel>() {
                     else loadMoreModule.loadMoreComplete()
                 }
             }
-        })
+        }
     }
 
     override fun startHttp() {

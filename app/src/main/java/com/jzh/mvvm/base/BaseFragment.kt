@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
+import com.jzh.mvvm.base.BaseApplication.Companion.mContext
 import com.jzh.mvvm.constant.Constant
 import com.jzh.mvvm.utils.DensityUtil
 import com.jzh.mvvm.utils.StatusBarUtils
@@ -53,9 +54,9 @@ abstract class BaseFragment : Fragment() {
      * 无网状态—>有网状态 的自动重连操作，子类可重写该方法
      */
     open fun doReConnected() {
-        LiveEventBus.get("isConnected", Boolean::class.java).observe(this, {
+        LiveEventBus.get("isConnected", Boolean::class.java).observe(this) {
             if (it) startHttp()
-        })
+        }
     }
 
     open fun showLoading() {
@@ -111,7 +112,7 @@ abstract class BaseFragment : Fragment() {
         title: String, subTitle: Any?, isBack: (() -> Unit)? = {
             mainView.toolbar_left_image_back.setImageDrawable(
                 ContextCompat.getDrawable(
-                    activity ?: BaseApplication.mContext,
+                    activity ?: mContext,
                     R.drawable.write_back
                 )
             )

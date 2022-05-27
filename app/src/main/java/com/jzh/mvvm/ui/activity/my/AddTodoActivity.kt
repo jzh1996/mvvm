@@ -84,23 +84,23 @@ class AddTodoActivity : BaseViewModelActivity<TodoActivityViewModel>() {
 
     private fun addTodo(map: MutableMap<String, Any>) {
         showLoading()
-        viewModel.addTodo(map).observe(this, {
+        viewModel.addTodo(map).observe(this) {
             hideLoading()
             setResult(RESULT_OK)
             toast("添加成功")
             finish()
-        })
+        }
     }
 
     private fun updateTodo(id: Int?, map: MutableMap<String, Any>) {
         if (id == null) return
         showLoading()
-        viewModel.updateTodo(id, map).observe(this, {
+        viewModel.updateTodo(id, map).observe(this) {
             hideLoading()
             setResult(RESULT_OK)
             toast("修改成功")
             finish()
-        })
+        }
     }
 
     override fun initView() {
@@ -121,7 +121,7 @@ class AddTodoActivity : BaseViewModelActivity<TodoActivityViewModel>() {
                 now = intent?.getStringExtra("dateStr")?.stringToCalendar() ?: now
             }
             val dpd = DatePickerDialog(
-                this, { view, year, month, dayOfMonth ->
+                this, { _, year, month, dayOfMonth ->
                     mCurrentDate = "$year-${month + 1}-$dayOfMonth"
                     tv_date.text = mCurrentDate
                 },

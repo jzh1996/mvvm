@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseViewModelActivity
 import com.jzh.mvvm.mvvm.viewModel.MyCollectActivityViewModel
@@ -48,7 +47,7 @@ class MyCollectActivity : BaseViewModelActivity<MyCollectActivityViewModel>() {
         }
         mAdapter.run {
             recyclerView = recyclerView_collect
-            setOnItemClickListener { adapter, view, position ->
+            setOnItemClickListener { _, _, position ->
                 if (data.size != 0) {
                     val data = data[position]
                     WebViewActivity.start(this@MyCollectActivity, data.id, data.title, data.link)
@@ -62,7 +61,7 @@ class MyCollectActivity : BaseViewModelActivity<MyCollectActivityViewModel>() {
             }
             addChildClickViewIds(R.id.iv_like)
 
-            setOnItemChildClickListener { adapter, view, position ->
+            setOnItemChildClickListener { _, view, position ->
                 if (isInvalidClick(view)) return@setOnItemChildClickListener
                 if (data.size == 0) return@setOnItemChildClickListener
                 when (view.id) {
@@ -79,9 +78,9 @@ class MyCollectActivity : BaseViewModelActivity<MyCollectActivityViewModel>() {
     private fun removeCollectArticle(id: Int, originId: Int) {
         showLoading()
         viewModel.removeCollectArticle(id, originId)
-            .observe(this@MyCollectActivity, {
+            .observe(this@MyCollectActivity) {
                 hideLoading()
-            })
+            }
     }
 
     override fun startHttp() {
@@ -91,7 +90,7 @@ class MyCollectActivity : BaseViewModelActivity<MyCollectActivityViewModel>() {
     }
 
     private fun getCollectList(page: Int) {
-        viewModel.getCollectList(page).observe(this, {
+        viewModel.getCollectList(page).observe(this) {
             it.datas.let { collectList ->
                 hideLoading()
                 mAdapter.run {
@@ -105,7 +104,7 @@ class MyCollectActivity : BaseViewModelActivity<MyCollectActivityViewModel>() {
                     else loadMoreModule.loadMoreComplete()
                 }
             }
-        })
+        }
     }
 
     override fun requestError(it: Exception?) {

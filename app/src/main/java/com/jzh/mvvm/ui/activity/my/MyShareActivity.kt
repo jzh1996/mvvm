@@ -93,9 +93,9 @@ class MyShareActivity : BaseViewModelActivity<ShareActivityViewModel>() {
                         else viewModel.addCollectArticle(res.id).observe(this@MyShareActivity, {})
                     }
                     R.id.btn_delete -> {
-                        viewModel.deleteShareArticle(res.id).observe(this@MyShareActivity, {
+                        viewModel.deleteShareArticle(res.id).observe(this@MyShareActivity) {
                             mAdapter.removeAt(position)
-                        })
+                        }
                     }
                     R.id.rl_content -> {
                         WebViewActivity.start(this@MyShareActivity, res.id, res.title, res.link)
@@ -113,7 +113,7 @@ class MyShareActivity : BaseViewModelActivity<ShareActivityViewModel>() {
     }
 
     private fun getShareArticle(page: Int) {
-        viewModel.getShareList(page + 1).observe(this, {
+        viewModel.getShareList(page + 1).observe(this) {
             hideLoading()
             it.shareArticles.datas.let { article ->
                 mAdapter.run {
@@ -127,7 +127,7 @@ class MyShareActivity : BaseViewModelActivity<ShareActivityViewModel>() {
                     else loadMoreModule.loadMoreComplete()
                 }
             }
-        })
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

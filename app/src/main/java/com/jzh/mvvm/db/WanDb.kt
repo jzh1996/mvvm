@@ -3,13 +3,14 @@ package com.jzh.mvvm.db
 import android.content.Context
 import androidx.room.Room
 import com.jzh.mvvm.base.BaseApplication
+import com.jzh.mvvm.base.BaseApplication.Companion.mContext
 
 object WanDb {
     private var context: Context? = null
     private var database: WanRoom? = null
 
     init {
-        this.context = BaseApplication.mContext
+        this.context = mContext
     }
 
     @JvmStatic

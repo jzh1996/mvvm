@@ -174,7 +174,7 @@ class TodoActivity : BaseViewModelActivity<TodoActivityViewModel>() {
 
     private fun getTodoList(page: Int, map: MutableMap<String, Any>) {
         showLoading()
-        viewModel.getTodoList(page + 1, map).observe(this, {
+        viewModel.getTodoList(page + 1, map).observe(this) {
             hideLoading()
             it.datas.let { todoList ->
                 setResult(RESULT_OK)
@@ -199,19 +199,19 @@ class TodoActivity : BaseViewModelActivity<TodoActivityViewModel>() {
                     else loadMoreModule.loadMoreComplete()
                 }
             }
-        })
+        }
     }
 
     private fun updateTodoById(id: Int, status: Int) {
-        viewModel.updateTodoById(id, status).observe(this, {
+        viewModel.updateTodoById(id, status).observe(this) {
             setResult(RESULT_OK)
-        })
+        }
     }
 
     private fun deleteTodoById(id: Int) {
-        viewModel.deleteTodoById(id).observe(this, {
+        viewModel.deleteTodoById(id).observe(this) {
             setResult(RESULT_OK)
-        })
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

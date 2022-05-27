@@ -2,6 +2,7 @@ package com.jzh.mvvm.db.repository
 
 import android.widget.Toast
 import com.jzh.mvvm.base.BaseApplication
+import com.jzh.mvvm.base.BaseApplication.Companion.mContext
 import kotlinx.coroutines.*
 
 open class BaseDBRepository : CoroutineScope by MainScope() {
@@ -18,7 +19,7 @@ open class BaseDBRepository : CoroutineScope by MainScope() {
             success?.invoke(result)
         }.invokeOnCompletion {
             if (it != null) {
-                Toast.makeText(BaseApplication.mContext, it.message ?: "本地数据库异常", Toast.LENGTH_SHORT)
+                Toast.makeText(mContext, it.message ?: "本地数据库异常", Toast.LENGTH_SHORT)
                     .show()
             }
             //需要自行处理error的话可以传入error参数

@@ -7,6 +7,8 @@ import com.jzh.mvvm.httpUtils.*
 import com.jzh.mvvm.mvvm.mainRepository.HomeRepository
 import com.jzh.mvvm.mvvm.viewModel.CommonViewModel
 import com.jzh.mvvm.utils.SingleLiveEvent
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 
 class HomeViewModel : CommonViewModel() {
 
@@ -52,16 +54,25 @@ class HomeViewModel : CommonViewModel() {
         //置顶数据一般少于20条，所以这个只在第一页加载置顶数据
         return if (page == 0) {
             launchUI {
-                topArticlesList = repository.getTopArticles().data
-                topArticlesList.forEach {
-                    it.top = "1"
+                val topArticles = async {
+                    topArticlesList = repository.getTopArticles().data
+                    topArticlesList.forEach {
+                        it.top = "1"
+                    }
                 }
-            }
-            launchUI {
-                articlesList = repository.getArticles(0).data.datas
+                val articles = async {
+                    articlesList = repository.getArticles(0).data.datas
+                }
+                topArticles.await()
+                articles.await()
                 topArticlesList.addAll(articlesList)
                 topArticlesDatas.value = topArticlesList
             }
+//            launchUI {
+//                articlesList = repository.getArticles(0).data.datas
+//                topArticlesList.addAll(articlesList)
+//                topArticlesDatas.value = topArticlesList
+//            }
             topArticlesDatas
         } else {
             getArticles(page)

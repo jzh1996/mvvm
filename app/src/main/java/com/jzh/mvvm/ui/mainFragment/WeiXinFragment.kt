@@ -44,7 +44,7 @@ class WeiXinFragment : BaseViewModelFragment<WeiXinViewModel>() {
     }
 
     private fun getWeiXin() {
-        viewModel.getWeiXin().observe(activity!!, {
+        viewModel.getWeiXin().observe(activity!!) {
             data.addAll(it)
             vp2.run {
                 adapter = viewPagerAdapter
@@ -53,7 +53,7 @@ class WeiXinFragment : BaseViewModelFragment<WeiXinViewModel>() {
             TabLayoutMediator(tbLayout, vp2) { tab, position ->
                 tab.text = data[position].name
             }.attach()
-        })
+        }
     }
 
     inner class WeXinPagerAdapter : FragmentStateAdapter(this) {

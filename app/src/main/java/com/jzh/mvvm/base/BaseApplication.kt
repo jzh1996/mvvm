@@ -1,5 +1,6 @@
 package com.jzh.mvvm.base
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.os.Build
@@ -21,6 +22,7 @@ class BaseApplication : Application() {
         // 用户信息
         var userInfo: UserInfoBody? = null
         lateinit var instance: Application
+        @SuppressLint("StaticFieldLeak")
         lateinit var mContext: Context
     }
 

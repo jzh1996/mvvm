@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.jzh.mvvm.mvvm.viewModel.CommonViewModel
 import com.jzh.mvvm.utils.toast
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.lang.Exception
 import kotlin.coroutines.cancellation.CancellationException
@@ -15,6 +18,7 @@ abstract class BaseViewModelFragment<VM : CommonViewModel> : BaseFragment() {
 
     private val fragmentName = javaClass.simpleName
     protected lateinit var viewModel: VM
+    private var isFirstLoad = true
 
     abstract fun providerVMClass(): Class<VM>?
 
@@ -45,14 +49,14 @@ abstract class BaseViewModelFragment<VM : CommonViewModel> : BaseFragment() {
     private fun startObserve() {
         //处理一些通用异常，比如网络超时等
         viewModel.run {
-            getError().observe(activity!!, {
+            getError().observe(activity!!) {
                 hideLoading()
                 hideSearchLoading()
                 requestError(it)
-            })
-            getFinally().observe(activity!!, {
+            }
+            getFinally().observe(activity!!) {
                 requestFinally(it)
-            })
+            }
         }
     }
 

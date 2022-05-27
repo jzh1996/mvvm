@@ -87,6 +87,25 @@
                     </RelativeLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_view_binding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawablePadding="20dp"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="viewBinding示例"
+                            android:textColor="@color/color_black1"
+                            android:textSize="@dimen/sp_14"
+                            app:drawableLeftCompat="@drawable/view_binding"
+                            app:drawableRightCompat="@drawable/right" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/ll_score"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

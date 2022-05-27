@@ -9,6 +9,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.jzh.mvvm.R
 import com.jzh.mvvm.base.BaseApplication
+import com.jzh.mvvm.base.BaseApplication.Companion.mContext
+
 import java.io.File
 
 object ImageLoader {
@@ -21,14 +23,14 @@ object ImageLoader {
      */
     fun load(context: Context?, url: String?, iv: ImageView?) {
         // 1.开启无图模式 2.非WiFi环境 不加载图片
-        if (!SettingUtil.getIsNoPhotoMode() || NetWorkUtil.isWifi(BaseApplication.mContext)) {
+        if (!SettingUtil.getIsNoPhotoMode() || NetWorkUtil.isWifi(mContext)) {
             iv?.apply {
                 visibility = View.VISIBLE
-                Glide.with(context ?: BaseApplication.mContext).clear(iv)
+                Glide.with(context ?: mContext).clear(iv)
                 val options = RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.DATA)
                     .placeholder(R.drawable.bg_placeholder)
-                Glide.with(context ?: BaseApplication.mContext)
+                Glide.with(context ?: mContext)
                     .load(url)
                     .transition(DrawableTransitionOptions().crossFade())
                     .apply(options)
@@ -44,11 +46,11 @@ object ImageLoader {
      */
     fun loadBanner(context: Context?, url: String?, iv: ImageView?) {
         iv?.apply {
-            Glide.with(context ?: BaseApplication.mContext).clear(iv)
+            Glide.with(context ?: mContext).clear(iv)
             val options = RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .placeholder(R.drawable.bg_placeholder)
-            Glide.with(context ?: BaseApplication.mContext)
+            Glide.with(context ?: mContext)
                 .load(url)
                 .transition(DrawableTransitionOptions().crossFade())
                 .apply(options)
@@ -61,8 +63,8 @@ object ImageLoader {
      */
     fun loadByNoCache(context: Context?, file: File?, iv: ImageView?) {
         if (iv == null) return
-        Glide.with(context ?: BaseApplication.mContext).clear(iv)
-        Glide.with(context ?: BaseApplication.mContext).load(file)
+        Glide.with(context ?: mContext).clear(iv)
+        Glide.with(context ?: mContext).load(file)
             .skipMemoryCache(true)//跳过内存缓存
             .diskCacheStrategy(DiskCacheStrategy.NONE)//不要在disk硬盘缓存
             .placeholder(R.drawable.bg_placeholder).dontAnimate()

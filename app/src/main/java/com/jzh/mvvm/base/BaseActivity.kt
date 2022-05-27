@@ -55,9 +55,9 @@ abstract class BaseActivity : AppCompatActivity() {
      * 无网状态—>有网状态 的自动重连操作，子类可重写该方法
      */
     open fun doReConnected() {
-        LiveEventBus.get("isConnected", Boolean::class.java).observe(this, {
+        LiveEventBus.get("isConnected", Boolean::class.java).observe(this) {
             if (it) startHttp()
-        })
+        }
     }
 
     open fun showLoading() {

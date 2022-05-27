@@ -72,7 +72,7 @@ class RankActivity : BaseViewModelActivity<MyScoreActivityViewModel>() {
 
     private fun getRankList(page: Int) {
         //该接口page从1开始
-        viewModel.getRankList(page + 1).observe(this, {
+        viewModel.getRankList(page + 1).observe(this) {
             hideLoading()
             it.datas.let { scoreList ->
                 mAdapter.run {
@@ -87,7 +87,7 @@ class RankActivity : BaseViewModelActivity<MyScoreActivityViewModel>() {
                     else loadMoreModule.loadMoreComplete()
                 }
             }
-        })
+        }
     }
 
     override fun requestError(it: Exception?) {

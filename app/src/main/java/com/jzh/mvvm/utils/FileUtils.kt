@@ -10,6 +10,8 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
 import com.jzh.mvvm.base.BaseApplication
+import com.jzh.mvvm.base.BaseApplication.Companion.mContext
+
 import com.jzh.mvvm.constant.Constant
 import java.io.*
 import java.math.BigDecimal
@@ -23,7 +25,7 @@ class FileUtils {
          * 生成文件夹路径
          */
         var SDPATH: String =
-            BaseApplication.mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString()
+            mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString()
 
         /**
          * 质量压缩 并返回Bitmap

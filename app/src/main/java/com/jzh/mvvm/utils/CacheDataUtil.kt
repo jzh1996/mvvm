@@ -1,6 +1,8 @@
 package com.jzh.mvvm.utils
 
 import com.jzh.mvvm.base.BaseApplication
+import com.jzh.mvvm.base.BaseApplication.Companion.mContext
+
 
 object CacheDataUtil {
 
@@ -10,8 +12,8 @@ object CacheDataUtil {
      */
     fun getCacheDir(): String? {
         var cacheFile =
-            if (FileUtils.isSDCardAlive()) BaseApplication.mContext.externalCacheDir else null
-        if (cacheFile == null) cacheFile = BaseApplication.mContext.cacheDir
+            if (FileUtils.isSDCardAlive()) mContext.externalCacheDir else null
+        if (cacheFile == null) cacheFile = mContext.cacheDir
         return cacheFile?.absolutePath
     }
 
@@ -19,9 +21,9 @@ object CacheDataUtil {
      * 获取系统默认缓存文件夹内的缓存大小
      */
     fun getTotalCacheSize(): String? {
-        var cacheSize = FileUtils.getSize(BaseApplication.mContext.cacheDir)
-        if (FileUtils.isSDCardAlive() && BaseApplication.mContext.externalCacheDir != null) {
-            cacheSize += FileUtils.getSize(BaseApplication.mContext.externalCacheDir!!)
+        var cacheSize = FileUtils.getSize(mContext.cacheDir)
+        if (FileUtils.isSDCardAlive() && mContext.externalCacheDir != null) {
+            cacheSize += FileUtils.getSize(mContext.externalCacheDir!!)
         }
         return FileUtils.formatSize(cacheSize.toDouble())
     }
@@ -30,9 +32,9 @@ object CacheDataUtil {
      * 清除系统默认缓存文件夹内的缓存
      */
     fun clearAllCache(): Boolean {
-        var isClearSuccess = FileUtils.delete(BaseApplication.mContext.cacheDir)
+        var isClearSuccess = FileUtils.delete(mContext.cacheDir)
         if (FileUtils.isSDCardAlive()) {
-            isClearSuccess = FileUtils.delete(BaseApplication.mContext.externalCacheDir)
+            isClearSuccess = FileUtils.delete(mContext.externalCacheDir)
         }
         return isClearSuccess
     }

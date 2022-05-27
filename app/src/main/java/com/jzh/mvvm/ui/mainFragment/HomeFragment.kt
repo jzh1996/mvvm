@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jzh.mvvm.R
+import com.jzh.mvvm.base.BaseApplication.Companion.mContext
 import com.jzh.mvvm.httpUtils.Article
 import com.jzh.mvvm.httpUtils.Banner
-import com.jzh.mvvm.base.BaseApplication
 import com.jzh.mvvm.base.BaseViewModelFragment
+
 import com.jzh.mvvm.constant.Constant
 import com.jzh.mvvm.mvvm.mainViewModel.HomeViewModel
 import com.jzh.mvvm.ui.activity.login.LoginActivity
@@ -26,7 +27,6 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.layout_network_err_tip.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import java.lang.Exception
 
@@ -60,16 +60,16 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
             return
         }
         bannerView?.visibility = View.VISIBLE
-        viewModel.getBanner().observe(activity!!, {
-            imgAdapter = ImageAdapter(context ?: BaseApplication.mContext, it)
+        viewModel.getBanner().observe(activity!!) {
+            imgAdapter = ImageAdapter(context ?: mContext, it)
             bannerView?.run {
                 setAdapter(imgAdapter, true)
-                setOnBannerListener { data, position ->
+                setOnBannerListener { data, _ ->
                     data as Banner
                     WebViewActivity.start(activity, data.id, data.title, data.url)
                 }
             }
-        })
+        }
     }
 
     private fun initArticles(page: Int) {
@@ -92,7 +92,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
                 }
             }
         } else {
-            viewModel.getArticles(page).observe(activity!!, {
+            viewModel.getArticles(page).observe(activity!!) {
                 it.let { Article ->
                     homeAdapter.run {
                         if (isRefresh) {
@@ -107,7 +107,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
                         else loadMoreModule.loadMoreComplete()
                     }
                 }
-            })
+            }
         }
     }
 
@@ -140,7 +140,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
             startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
         }
         //首次启动要判断一下，不然会始终显示网络错误的View
-        if (NetWorkUtil.isNetworkConnected(BaseApplication.mContext)) mTipView.visibility =
+        if (NetWorkUtil.isNetworkConnected(mContext)) mTipView.visibility =
             View.GONE
         //初始化网络状态的LiveData
         initNetError()
@@ -193,27 +193,27 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
                         val collect = res.collect
                         res.collect = !collect
                         setData(position, res)
-                        if (collect) viewModel.cancelCollectArticle(res.id).observe(activity!!, {})
-                        else viewModel.addCollectArticle(res.id).observe(activity!!, {})
+                        if (collect) viewModel.cancelCollectArticle(res.id).observe(activity!!) {}
+                        else viewModel.addCollectArticle(res.id).observe(activity!!) {}
                     }
                 }
             }
         }
         RvAnimUtils.setAnim(homeAdapter, SettingUtil.getListAnimal())
-        LiveEventBus.get("rv_anim").observe(this, {
+        LiveEventBus.get("rv_anim").observe(this) {
             RvAnimUtils.setAnim(homeAdapter, it)
-        })
+        }
     }
 
     private fun initNetError() {
-        LiveEventBus.get("isConnected", Boolean::class.java).observe(this, {
+        LiveEventBus.get("isConnected", Boolean::class.java).observe(this) {
             if (it) {
                 startHttp()
                 mTipView.visibility = View.GONE
             } else {
                 mTipView.visibility = View.VISIBLE
             }
-        })
+        }
     }
 
     override fun startHttp() {

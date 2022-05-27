@@ -5,7 +5,8 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.jzh.mvvm.base.BaseApplication
+import com.jzh.mvvm.base.BaseApplication.Companion.mContext
+
 
 /**
  * 自定义Toast
@@ -51,10 +52,10 @@ fun View.longToast(resId: Int) = context.longToast(resId)
 
 fun View.longToast(text: CharSequence) = context.longToast(text)
 
-fun Fragment.toast(resId: Int) = (activity ?: BaseApplication.mContext).toast(resId)
+fun Fragment.toast(resId: Int) = (activity ?: mContext).toast(resId)
 
-fun Fragment.toast(text: CharSequence) = (activity ?: BaseApplication.mContext).toast(text)
+fun Fragment.toast(text: CharSequence) = (activity ?: mContext).toast(text)
 
-fun Fragment.longToast(resId: Int) = (activity ?: BaseApplication.mContext).longToast(resId)
+fun Fragment.longToast(resId: Int) = (activity ?: mContext).longToast(resId)
 
-fun Fragment.longToast(text: CharSequence) = (activity ?: BaseApplication.mContext).longToast(text)
+fun Fragment.longToast(text: CharSequence) = (activity ?: mContext).longToast(text)

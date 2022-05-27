@@ -1,7 +1,6 @@
 package com.jzh.mvvm.mvvm.viewModel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.jzh.mvvm.base.BaseViewModel
 import com.jzh.mvvm.httpUtils.LoginData
 import com.jzh.mvvm.httpUtils.TodoResponseBody
@@ -22,19 +21,19 @@ open class CommonViewModel : BaseViewModel() {
     private var loginData = SingleLiveEvent<LoginData>()
     private var logoutData = SingleLiveEvent<Any>()
     private var registerData = SingleLiveEvent<LoginData>()
-    private var data = SingleLiveEvent<TodoResponseBody>()
+    var todoData = SingleLiveEvent<TodoResponseBody>()
 
     /**
      * 如果需要对返回的数据进行操作后再返回给调用者
-     * 可以使用Transformations.map(data) {}或 Transformations.switchMap(data){}对data进行处理
+     * 可以使用Transformations.map(todoData) {}或 Transformations.switchMap(todoData){}对data进行处理
      * 详见 https://developer.android.google.cn/topic/libraries/architecture/livedata
      */
     fun getTodoList(page: Int, map: MutableMap<String, Any>): LiveData<TodoResponseBody> {
         launchUI {
             val res = repository.getTodoList(page, map)
-            data.value = res.data
+            todoData.value = res.data
         }
-        return data
+        return todoData
     }
 
     fun addCollectArticle(id: Int): LiveData<Any> {

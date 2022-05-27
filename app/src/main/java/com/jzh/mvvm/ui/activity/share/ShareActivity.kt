@@ -40,10 +40,10 @@ class ShareActivity : BaseViewModelActivity<ShareActivityViewModel>() {
         val map = mutableMapOf<String, Any>()
         map["title"] = title
         map["link"] = link
-        viewModel.shareArticle(map).observe(this, {
+        viewModel.shareArticle(map).observe(this) {
             toast("提交成功")
             setResult(RESULT_OK)
             this@ShareActivity.finish()
-        })
+        }
     }
 }

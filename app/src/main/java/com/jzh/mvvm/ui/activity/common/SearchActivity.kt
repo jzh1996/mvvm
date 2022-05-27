@@ -140,7 +140,7 @@ class SearchActivity : BaseViewModelActivity<HomeViewModel>() {
             return
         }
         showSearchLoading()
-        viewModel.queryBySearchKey(page, key).observe(this, {
+        viewModel.queryBySearchKey(page, key).observe(this) {
             it.datas.let { Article ->
                 hideSearchLoading()
                 homeAdapter.run {
@@ -155,13 +155,13 @@ class SearchActivity : BaseViewModelActivity<HomeViewModel>() {
                     else loadMoreModule.loadMoreComplete()
                 }
             }
-        })
+        }
     }
 
     private fun getHotSearch() {
-        viewModel.getHotSearchData().observe(this, {
+        viewModel.getHotSearchData().observe(this) {
 
-        })
+        }
     }
 
     override fun requestError(it: Exception?) {

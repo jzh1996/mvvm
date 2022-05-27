@@ -2,6 +2,8 @@ package com.jzh.mvvm.httpUtils
 
 import android.util.Log
 import com.jzh.mvvm.base.BaseApplication
+import com.jzh.mvvm.base.BaseApplication.Companion.mContext
+
 import com.jzh.mvvm.constant.HttpConstant
 import com.jzh.mvvm.httpUtils.interceptor.CacheInterceptor
 import com.jzh.mvvm.httpUtils.interceptor.HeaderInterceptor
@@ -62,7 +64,7 @@ object RetrofitClient {
 //        } else loggingInterceptor = HttpLoggingInterceptor()
 
         //设置 请求的缓存的大小跟位置
-        val cacheFile = File(BaseApplication.mContext.cacheDir, "cache")
+        val cacheFile = File(mContext.cacheDir, "cache")
         val cache = Cache(cacheFile, HttpConstant.MAX_CACHE_SIZE)
 
         builder.run {

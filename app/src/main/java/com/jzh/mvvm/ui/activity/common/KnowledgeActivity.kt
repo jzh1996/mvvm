@@ -42,7 +42,7 @@ class KnowledgeActivity : BaseActivity() {
         vp2 = vp2_know
         vp2.run {
             adapter = viewPagerAdapter
-//            offscreenPageLimit = data.size
+//            offscreenPageLimit = todoData.size
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {})
             currentItem = pos
         }

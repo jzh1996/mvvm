@@ -8,7 +8,7 @@
 ## 简介
 [MvvM](https://github.com/jzh1996/mvvm) 采用 `Kotlin` 语言编写，结合 `MVVM` + `协程` + `Retrofit` + `Glide` + `JetPack`部分功能 等架构设计的项目，项目代码结构清晰，如有任何疑问和建议请提 [Issues](https://github.com/jzh1996/mvvm/issues) 或联系 qq： **1510931535** ，项目会持续迭代维护。
 
-## 项目截图(需要翻墙才能看到)
+## 项目截图
 
 | ![](demo_pic/1.jpg) | ![](demo_pic/2.jpg) | ![](demo_pic/3.jpg) | ![](demo_pic/4.jpg) |
 | --- | --- | --- | --- |

@@ -251,6 +251,9 @@ interface ApiService {
     @GET("/lg/todo/v2/list/{page}/json")
     suspend fun getTodoList(@Path("page") page: Int, @QueryMap map: MutableMap<String, Any>): ResponseData<TodoResponseBody>
 
+    @GET("/lg/todo/v2/list/{page}/json")
+    suspend fun getTodoListNew(@Path("page") page: Int, @QueryMap map: MutableMap<String, Any>): NewResponseData<TodoResponseBody>
+
     /**
      * 仅更新完成状态Todo
      * http://www.wanandroid.com/lg/todo/done/80/json

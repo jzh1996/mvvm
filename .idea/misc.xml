@@ -16,12 +16,17 @@
         <entry key="..\:/github/github/mvvm/app/src/main/res/drawable/rank_list_item_bg.xml" value="0.197" />
         <entry key="..\:/github/github/mvvm/app/src/main/res/drawable/search_bg.xml" value="0.197" />
         <entry key="..\:/github/github/mvvm/app/src/main/res/drawable/splash_bg.xml" value="0.197" />
+        <entry key="..\:/github/github/mvvm/app/src/main/res/layout/activity_main.xml" value="0.3536458333333333" />
+        <entry key="..\:/github/github/mvvm/app/src/main/res/layout/activity_search.xml" value="0.3536458333333333" />
         <entry key="..\:/github/github/mvvm/app/src/main/res/layout/activity_system.xml" value="0.3536458333333333" />
         <entry key="..\:/github/github/mvvm/app/src/main/res/layout/activity_view_binding.xml" value="0.3390625" />
         <entry key="..\:/github/github/mvvm/app/src/main/res/layout/fragment_empty_layout.xml" value="0.3536458333333333" />
+        <entry key="..\:/github/github/mvvm/app/src/main/res/layout/item_knowledge_text.xml" value="0.3482051282051282" />
         <entry key="..\:/github/github/mvvm/app/src/main/res/layout/item_knowledge_tree_list.xml" value="0.19429347826086957" />
         <entry key="..\:/github/github/mvvm/app/src/main/res/layout/my_fragment.xml" value="0.3536458333333333" />
         <entry key="..\:/github/github/mvvm/app/src/main/res/layout/toolbar_layout.xml" value="0.3536458333333333" />
+        <entry key="..\:/github/github/mvvm/app/src/main/res/layout/toolbar_layout_search.xml" value="0.3536458333333333" />
+        <entry key="..\:/github/github/mvvm/app/src/main/res/layout/work_fragment.xml" value="0.24607329842931938" />
       </map>
     </option>
   </component>

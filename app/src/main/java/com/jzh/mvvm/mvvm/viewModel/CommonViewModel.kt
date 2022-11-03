@@ -1,11 +1,18 @@
 package com.jzh.mvvm.mvvm.viewModel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.jzh.mvvm.base.BaseViewModel
 import com.jzh.mvvm.httpUtils.LoginData
+import com.jzh.mvvm.httpUtils.NewResponseData
+import com.jzh.mvvm.httpUtils.ResponseData
 import com.jzh.mvvm.httpUtils.TodoResponseBody
 import com.jzh.mvvm.mvvm.repository.CommonRepository
 import com.jzh.mvvm.utils.SingleLiveEvent
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * 通用的ViewModel,如收藏,登录等接口很多页面都用
@@ -22,6 +29,7 @@ open class CommonViewModel : BaseViewModel() {
     private var logoutData = SingleLiveEvent<Any>()
     private var registerData = SingleLiveEvent<LoginData>()
     var todoData = SingleLiveEvent<TodoResponseBody>()
+    var newTodoData = MutableLiveData<NewResponseData<TodoResponseBody>>()
 
     /**
      * 如果需要对返回的数据进行操作后再返回给调用者
@@ -34,6 +42,12 @@ open class CommonViewModel : BaseViewModel() {
             todoData.value = res.data
         }
         return todoData
+    }
+
+    fun getTodoListNew(page: Int, map: MutableMap<String, Any>): Job {
+        return viewModelScope.launch(Dispatchers.IO) {
+            repository.getTodoListNew(newTodoData, page, map)
+        }
     }
 
     fun addCollectArticle(id: Int): LiveData<Any> {

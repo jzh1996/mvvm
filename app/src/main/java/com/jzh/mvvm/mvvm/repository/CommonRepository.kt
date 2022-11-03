@@ -1,10 +1,8 @@
 package com.jzh.mvvm.mvvm.repository
 
+import androidx.lifecycle.MutableLiveData
 import com.jzh.mvvm.base.BaseRepository
-import com.jzh.mvvm.httpUtils.LoginData
-import com.jzh.mvvm.httpUtils.ResponseData
-import com.jzh.mvvm.httpUtils.RetrofitClient
-import com.jzh.mvvm.httpUtils.TodoResponseBody
+import com.jzh.mvvm.httpUtils.*
 
 /**
  * 通用的Repository
@@ -52,4 +50,12 @@ open class CommonRepository : BaseRepository() {
         request {
             RetrofitClient.service.getTodoList(page, map)
         }
+
+    suspend fun getTodoListNew(
+        data: MutableLiveData<NewResponseData<TodoResponseBody>>,
+        page: Int,
+        map: MutableMap<String, Any>
+    ) {
+        requestWithFlow({ RetrofitClient.service.getTodoListNew(page, map) }, data)
+    }
 }

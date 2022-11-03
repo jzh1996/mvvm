@@ -8,6 +8,21 @@ data class ResponseData<out T>(
     val data: T
 )
 
+data class NewResponseData<out T>(
+    val errorCode: Int = -1,
+    val errorMsg: String = "",
+    val data: T? = null,
+    var error: Throwable? = null,
+    var dataState: DataState? = null
+)
+
+enum class DataState {
+    STATE_LOADING,//加载中
+    STATE_SUCCESS,//成功
+    STATE_FAILED,//接口请求成功但是服务器返回error
+    STATE_ERROR,//请求失败
+}
+
 //轮播图
 data class Banner(
     val desc: String,

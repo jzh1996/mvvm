@@ -52,7 +52,7 @@ class ViewBindingActivity : BaseViewBindingActivity<CommonViewModel, ActivityVie
     private fun getData() {
         val dataMap = mutableMapOf<String, Any>()
         dataMap["status"] = 1
-        //相比于以前的发起请求后直接监听结果，这里分开写更容易理解；而且可以手动取消
+        //相比于以前的发起请求后直接监听结果，这里分开写更容易理解； 而且可以手动取消
         val todoJob = viewModel.getTodoListNew(0, dataMap)
         //viewModel.getTodoListNew返回的是一个Job对象，如果有特殊情况需要取消网络请求可以使用，写法如下
 //        todoJob.cancel()
